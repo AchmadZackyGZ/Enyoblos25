@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\GoogleController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\KandidatController;
 use App\Http\Controllers\PanitiaController;
@@ -25,6 +26,8 @@ Route::get('/', [HomeController::class, 'index'])->name('home')->middleware('aut
 Route::get('/login', [AuthController::class, 'index'])->name('login');
 Route::post('/login', [AuthController::class, 'authenticate'])->name('authenticate');
 Route::post('/logout', [AuthController::class, 'logout'])->name('logout')->middleware('auth');
+Route::get('/auth/google', [GoogleController::class, 'redirectToGoogle'])->name('auth.google');
+Route::get('/auth/google/callback', [GoogleController::class, 'handleGoogleCallback'])->name('auth.google_callback');
 
 // All Logged in user
 Route::middleware('auth')->group(function () {

@@ -47,12 +47,12 @@
     </li>
 
     <!-- Nav Item - Master -->
-    <hr class="sidebar-divider">
-    <div class="sidebar-heading">
-        Master
-    </div>
-
     @if (Auth::user()->role == 'master')
+        <hr class="sidebar-divider">
+        <div class="sidebar-heading">
+            Master
+        </div>
+
         <li class="nav-item {{ Route::currentRouteName() == 'panitia.index' ? 'active' : '' }}">
             <a class="nav-link" href="{{ route('panitia.index') }}">
                 <i class="fas fa-fw fa-lock"></i>

@@ -48,10 +48,10 @@
                                         <button type="submit" class="btn btn-orange btn-user btn-block">
                                             Login
                                         </button>
-                                        {{-- <a href="#" class="btn btn-orange btn-user btn-block">
+                                        <a href="{{ route('auth.google') }}" class="btn btn-orange btn-user btn-block">
                                             <i class="fab fa-google fa-fw"></i> Login dengan Google
                                         </a>
-                                        <hr> --}}
+                                        <hr>
                                         <p class="text-danger my-2">Jika mengalami kendala login hubungi: <span><a
                                                     href="#" target="_blank">0xxxxxxxx</a></span></p>
                                     </form>
