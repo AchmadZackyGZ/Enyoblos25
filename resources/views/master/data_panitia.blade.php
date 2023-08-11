@@ -27,9 +27,6 @@
 
         {{-- Tambah Panitia --}}
         <div class="card shadow mb-4">
-            {{-- <div class="card-header py-3">
-                Tambah Panitia
-            </div> --}}
             <a href="#tambahPanitiaCard" class="d-block card-header py-3" data-toggle="collapse" role="button"
                 aria-expanded="true" aria-controls="collapseCardExample">
                 <h6 class="m-0 font-weight-bold text-primary">Tambah Panitia</h6>
@@ -79,7 +76,6 @@
         <div class="card shadow mb-4">
             <div class="card-header py-3">
                 <div class="d-flex justify-content-end">
-                    {{-- <a href="{{ route('panitia.create') }}" class="btn btn-primary mx-1">Tambah Data</a> --}}
                     <button type="submit" class="btn btn-danger mx-1" form="dataPanitiaForm">Hapus Terpilih</button>
                 </div>
             </div>

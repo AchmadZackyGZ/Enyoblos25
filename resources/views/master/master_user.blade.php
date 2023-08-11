@@ -21,8 +21,7 @@
         <!-- DataTales Example -->
         <div class="card shadow mb-4">
             <div class="card-header py-3">
-                {{-- <h6 class="m-0 font-weight-bold text-primary">Data Pemilih</h6> --}}
-                <div class="d-flex justify-content-end">
+                <div class="d-flex flex-wrap justify-content-end" style="gap: 5px">
                     <a href="{{ route('pemilih.create') }}" class="btn btn-primary mx-1">Tambah Data</a>
                     <a href="#" class="btn btn-primary mx-1" data-toggle="modal"
                         data-target="#importPemilihModal">Import

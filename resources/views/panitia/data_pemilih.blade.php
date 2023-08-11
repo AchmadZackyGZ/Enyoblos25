@@ -21,15 +21,13 @@
         <!-- DataTales Example -->
         <div class="card shadow mb-4">
             <div class="card-header py-3">
-                {{-- <h6 class="m-0 font-weight-bold text-primary">Data Pemilih</h6> --}}
-                <div class="d-flex justify-content-end">
-                    <a href="{{ route('pemilih.create') }}" class="btn btn-primary mx-1">Tambah Data</a>
-                    <a href="#" class="btn btn-primary mx-1" data-toggle="modal"
-                        data-target="#importPemilihModal">Import
+                <div class="d-flex flex-wrap justify-content-end" style="gap: 5px">
+                    <a href="{{ route('pemilih.create') }}" class="btn btn-primary">Tambah Data</a>
+                    <a href="#" class="btn btn-primary" data-toggle="modal" data-target="#importPemilihModal">Import
                         Data</a>
-                    <a href="{{ route('kirim_email_all') }}" class="btn btn-primary mx-1">Kirim Email Semua User</a>
-                    <button type="submit" class="btn btn-danger mx-1" form="dataPemilihForm">Hapus Terpilih</button>
-                    <a href="{{ route('panitia.download_template_pemilih') }}" class="btn btn-warning mx-1">Template
+                    <a href="{{ route('kirim_email_all') }}" class="btn btn-primary">Kirim Email Semua User</a>
+                    <button type="submit" class="btn btn-danger" form="dataPemilihForm">Hapus Terpilih</button>
+                    <a href="{{ route('panitia.download_template_pemilih') }}" class="btn btn-warning">Template
                         Import</a>
                 </div>
             </div>
