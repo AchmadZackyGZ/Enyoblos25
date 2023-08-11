@@ -7,7 +7,6 @@ use App\Http\Controllers\KandidatController;
 use App\Http\Controllers\PanitiaController;
 use App\Http\Controllers\PemilihController;
 use App\Http\Controllers\UserController;
-use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Route;
 
 /*
