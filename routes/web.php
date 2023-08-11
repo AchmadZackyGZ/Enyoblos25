@@ -7,6 +7,7 @@ use App\Http\Controllers\KandidatController;
 use App\Http\Controllers\PanitiaController;
 use App\Http\Controllers\PemilihController;
 use App\Http\Controllers\UserController;
+use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -64,8 +65,11 @@ Route::middleware(['auth', 'role:panitia,master'])->group(function () {
 // Master
 Route::middleware(['auth', 'role:master'])->group(function () {
     Route::get('/dashboard/master', [HomeController::class, 'masterHome'])->name('master_home');
-    Route::resource('/panitia', PanitiaController::class);
+    Route::resource('/panitia', PanitiaController::class)->only(['index', 'store']);
     Route::delete('/delete-selected/panitia', [PanitiaController::class, 'deleteSelected'])->name('panitia.delete_selected');
     Route::resource('/user', UserController::class);
     Route::post('/user/reset-password/{id}', [UserController::class, 'resetPassword'])->name('user.reset_password');
+    Route::get('/cache-clear', function(){
+        Artisan::call('cache:clear');
+    });
 });

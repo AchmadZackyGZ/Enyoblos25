@@ -95,11 +95,9 @@ class PemilihController extends Controller
             'fileImport' => 'required|mimes:xlsx'
         ]);
 
-        // dd($validatedData);
-
         Excel::import(new ImportPemilih, $request->file('fileImport'));
 
-        return redirect()->route('pemilih.index')->with('success', 'Data Berhasil Diimport');
+        return redirect()->back()->with('success', 'Data Berhasil Diimport');
     }
 
     /**
@@ -107,7 +105,6 @@ class PemilihController extends Controller
      */
     public function deleteSelected(Request $request)
     {
-        // dd($request->ids);
         if ($request->ids) {
             User::whereIn('id', $request->ids)->delete();
             return redirect()->route('pemilih.index')->with('success', 'Data berhasil dihapus');

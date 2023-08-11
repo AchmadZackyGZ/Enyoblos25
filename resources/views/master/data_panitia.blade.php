@@ -17,12 +17,69 @@
                 {{ session('success') }}
             </div>
         @endif
+        @if (session()->has('errors'))
+            @foreach (session('errors')->all() as $e)
+                <div class="alert alert-danger" role="alert">
+                    {{ $e }}
+                </div>
+            @endforeach
+        @endif
 
-        <!-- DataTales Example -->
+        {{-- Tambah Panitia --}}
+        <div class="card shadow mb-4">
+            {{-- <div class="card-header py-3">
+                Tambah Panitia
+            </div> --}}
+            <a href="#tambahPanitiaCard" class="d-block card-header py-3" data-toggle="collapse" role="button"
+                aria-expanded="true" aria-controls="collapseCardExample">
+                <h6 class="m-0 font-weight-bold text-primary">Tambah Panitia</h6>
+            </a>
+            <div class="collapse {{ request('nim') ? 'show' : '' }}" id="tambahPanitiaCard">
+                <div class="card-body">
+                    <form action="">
+                        <div class="row">
+                            <div class="col-12 col-md-10 mb-3">
+                                <input class="form-control form-control-solid" id="nimInput" type="text"
+                                    placeholder="NIM" name="nim" required>
+                            </div>
+                            <div class="col-12 col-md-2 mb-3">
+                                <button type="submit" class="btn btn-primary">Cari Data</button>
+                            </div>
+                        </div>
+                    </form>
+
+                    @if ($hasilSearch)
+                        <hr>
+                        <form action="{{ route('panitia.store') }}" method="POST">
+                            @csrf
+                            <div class="mb-3">
+                                <label for="nim">NIM</label>
+                                <input class="form-control form-control-solid" id="nimInput" type="text"
+                                    placeholder="NIM" name="nim" required readonly value="{{ $hasilSearch->nim }}">
+                            </div>
+                            <div class="mb-3">
+                                <label for="nama">Nama</label>
+                                <input class="form-control form-control-solid" id="namaInput" type="text"
+                                    placeholder="Nama User" name="name" required readonly
+                                    value="{{ $hasilSearch->name }}">
+                            </div>
+                            <div class="d-flex justify-content-end">
+                                <button type="submit" class="btn btn-primary">Tambah</button>
+                            </div>
+                        </form>
+                    @endif
+                    @if (request('nim') && !$hasilSearch)
+                        <p>Data tidak ditemukan. User telah menjadi panitia atau sudah mendaftar menjadi kandidat</p>
+                    @endif
+                </div>
+            </div>
+        </div>
+
+        <!-- Table Data Panitia -->
         <div class="card shadow mb-4">
             <div class="card-header py-3">
                 <div class="d-flex justify-content-end">
-                    <a href="{{ route('panitia.create') }}" class="btn btn-primary mx-1">Tambah Data</a>
+                    {{-- <a href="{{ route('panitia.create') }}" class="btn btn-primary mx-1">Tambah Data</a> --}}
                     <button type="submit" class="btn btn-danger mx-1" form="dataPanitiaForm">Hapus Terpilih</button>
                 </div>
             </div>

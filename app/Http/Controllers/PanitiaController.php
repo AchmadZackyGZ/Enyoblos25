@@ -18,11 +18,19 @@ class PanitiaController extends Controller
      */
     public function index()
     {
-        $idKandidat = Kandidat::all()->pluck('id_user')->toArray();
-        $dataPanitia = User::whereNotIn('id', $idKandidat)->where('role', 'panitia')->get();
+        // $idKandidat = Kandidat::all()->pluck('id_user')->toArray();
+        // $dataPanitia = User::whereNotIn('id', $idKandidat)->where('role', 'panitia')->get();
+        $dataPanitia = User::where('role', 'panitia')->get();
+
+        $hasilSearch = null;
+        if (request('nim')) {
+            $hasilSearch = User::where('nim', request('nim'))->where('role', '!=', 'panitia')->first();
+        }
+
         return view('master/data_panitia', [
-            'title' => 'Data Pemilih',
-            'dataPanitia' => $dataPanitia
+            'title' => 'Data Panitia',
+            'dataPanitia' => $dataPanitia,
+            'hasilSearch' => $hasilSearch
         ]);
     }
 
@@ -31,15 +39,6 @@ class PanitiaController extends Controller
      */
     public function create()
     {
-        $hasilSearch = null;
-        if (request('nim')) {
-            $kandidat = Kandidat::all()->pluck('id_user')->toArray();
-            $hasilSearch = User::where('nim', request('nim'))->whereNotIn('id', $kandidat)->where('role', '!=', 'panitia')->first();
-        }
-        return view('master/tambah_panitia', [
-            'title' => 'Tambah Panitia',
-            'hasilSearch' => $hasilSearch
-        ]);
     }
 
     /**
@@ -155,7 +154,7 @@ class PanitiaController extends Controller
     /**
      * API ambil data pemilihan
      */
-    public function getdataPanitiaan()
+    public function getDataPemilihan()
     {
         $dataCalon = Kandidat::with('user')->get();
         $dataJson = [];

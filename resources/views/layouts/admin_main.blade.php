@@ -30,7 +30,7 @@
     <div id="wrapper">
 
         <!-- Sidebar -->
-        @include('layouts/admin_sidebar');
+        @include('layouts/admin_sidebar')
         <!-- End of Sidebar -->
 
         <!-- Content Wrapper -->

@@ -3,11 +3,15 @@
 namespace App\Imports;
 
 use App\Models\User;
+use Maatwebsite\Excel\Concerns\SkipsErrors;
+use Maatwebsite\Excel\Concerns\SkipsOnError;
 use Maatwebsite\Excel\Concerns\ToModel;
 use Maatwebsite\Excel\Concerns\WithHeadingRow;
+use Throwable;
 
-class ImportPemilih implements ToModel, WithHeadingRow
+class ImportPemilih implements ToModel, WithHeadingRow, SkipsOnError
 {
+    use SkipsErrors;
     /**
      * @param array $row
      *
@@ -22,5 +26,9 @@ class ImportPemilih implements ToModel, WithHeadingRow
             'password' => bcrypt($row['nim'] . '_pemira2023'),
             'angkatan' => $row['angkatan'],
         ]);
+    }
+
+    public function onError(Throwable $e)
+    {
     }
 }
