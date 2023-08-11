@@ -69,7 +69,4 @@ Route::middleware(['auth', 'role:master'])->group(function () {
     Route::delete('/delete-selected/panitia', [PanitiaController::class, 'deleteSelected'])->name('panitia.delete_selected');
     Route::resource('/user', UserController::class);
     Route::post('/user/reset-password/{id}', [UserController::class, 'resetPassword'])->name('user.reset_password');
-    Route::get('/cache-clear', function(){
-        Artisan::call('cache:clear');
-    });
 });
