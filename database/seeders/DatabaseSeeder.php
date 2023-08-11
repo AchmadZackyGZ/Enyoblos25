@@ -5,6 +5,7 @@ namespace Database\Seeders;
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 
 use App\Models\InfoPemilihan;
+use App\Models\Pengaturan;
 use App\Models\User;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
@@ -44,11 +45,12 @@ class DatabaseSeeder extends Seeder
             'role' => 'panitia',
         ]);
 
-        InfoPemilihan::insert([
+        Pengaturan::insert([
             'nama' => 'Nama Pemilihan',
             'tahun' => 2023,
             'status_pemilihan' => 'tidak_aktif',
-            'status_pendaftaran' => 'tidak_aktif'
+            'status_pendaftaran' => 'tidak_aktif',
+            'halaman_daftar' => 'aktif'
         ]);
 
         Storage::deleteDirectory('pdf_ktm');

@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\HasilPemilihan;
-use App\Models\InfoPemilihan;
+use App\Models\Pengaturan;
 use App\Models\Kandidat;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -31,7 +31,7 @@ class KandidatController extends Controller
     public function create()
     {
         $userKandidat = Kandidat::where('id_user', Auth::user()->id)->first();
-        $pengaturan = InfoPemilihan::first();
+        $pengaturan = Pengaturan::first();
         return view('user/daftar_kandidat', [
             "title" => 'Daftar Kandidat',
             'userKandidat' => $userKandidat,

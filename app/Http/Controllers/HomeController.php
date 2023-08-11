@@ -3,8 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Models\HasilPemilihan;
-use App\Models\InfoPemilihan;
 use App\Models\Kandidat;
+use App\Models\Pengaturan;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -28,7 +28,7 @@ class HomeController extends Controller
 
     public function userHome()
     {
-        $pengaturan = InfoPemilihan::first();
+        $pengaturan = Pengaturan::first();
         $userVote = HasilPemilihan::where('id_pemilih', Auth::user()->id)->first();
         $kandidat = Kandidat::with('user')->where('status', 'sudah_diverifikasi')->get();
         $isUserKandidat = Kandidat::where('id_user', Auth::user()->id)->first();

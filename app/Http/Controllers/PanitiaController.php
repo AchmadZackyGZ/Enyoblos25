@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Mail\InfoPemiraMail;
 use App\Models\HasilPemilihan;
-use App\Models\InfoPemilihan;
+use App\Models\Pengaturan;
 use App\Models\Kandidat;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -106,10 +106,10 @@ class PanitiaController extends Controller
      */
     public function pengaturan()
     {
-        $infoPemilihan = InfoPemilihan::first();
+        $pengaturan = Pengaturan::first();
         return view('panitia/pengaturan', [
             'title' => 'Pengaturan KPU',
-            'data' => $infoPemilihan
+            'data' => $pengaturan
         ]);
     }
 
@@ -125,7 +125,7 @@ class PanitiaController extends Controller
             'status_pendaftaran' => 'required'
         ]);
 
-        $pengaturan = InfoPemilihan::first();
+        $pengaturan = Pengaturan::first();
         $pengaturan->update($validatedData);
 
         return redirect()->route('pengaturan')->with('success', 'Berhasil diupdate');
@@ -144,7 +144,7 @@ class PanitiaController extends Controller
      */
     public function statusPemilihan()
     {
-        $pengaturan = InfoPemilihan::first();
+        $pengaturan = Pengaturan::first();
         return view('panitia/status_pemilihan', [
             'title' => 'Status Pemilihan',
             'pengaturan' => $pengaturan

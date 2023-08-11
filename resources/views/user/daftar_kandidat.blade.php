@@ -10,7 +10,6 @@
         <!-- DataTales Example -->
         <div class="card shadow mb-4">
             <div class="card-header py-3">
-                {{-- <h6 class="m-0 font-weight-bold text-primary">Data Pemilih</h6> --}}
             </div>
             <div class="card-body">
                 @if (session()->has('errors'))
@@ -88,7 +87,7 @@
                                     DIVERIFIKASI
                                     OLEH ADMIN</p>
                                 <p style="font-weight: bold;" class="text-dark">Hubungi <span><a
-                                            href="https://wa.me/083839764676" target="_blank">08xxxxxxxxx</a></span> jika
+                                            href="https://wa.me/083839764676" target="_blank">083839764676</a></span> jika
                                     mengalami kendala</p>
                             </div>
                         </div>
