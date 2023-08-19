@@ -30,10 +30,18 @@
 
         <!-- Page level custom scripts -->
         <script>
+            var namaCalon = []
+            var hasilVote = []
             $(function() {
+                setInterval(function() {
+                    updateChart()
+                }, 1000)
+            })
+
+            function updateChart() {
                 $.get("{{ route('get_data_pemilihan') }}", function(data) {
-                    var namaCalon = []
-                    var hasilVote = []
+                    namaCalon = []
+                    hasilVote = []
                     data.forEach(d => {
                         namaCalon.push(Object.keys(d)[0])
                         hasilVote.push(Object.values(d)[0])
@@ -80,6 +88,7 @@
                                 hoverBackgroundColor: "#2e59d9",
                                 borderColor: "#4e73df",
                                 data: hasilVote,
+                                maxBarThickness: 25,
                             }],
                         },
                         options: {
@@ -104,7 +113,6 @@
                                     ticks: {
                                         maxTicksLimit: 6
                                     },
-                                    maxBarThickness: 25,
                                 }],
                                 yAxes: [{
                                     ticks: {
@@ -151,10 +159,13 @@
                                     }
                                 }
                             },
+                            animation: {
+                                duration: 0
+                            }
                         }
                     });
                 })
-            })
+            }
         </script>
     @endpush
 @endsection
