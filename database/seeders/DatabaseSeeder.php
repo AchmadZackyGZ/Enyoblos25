@@ -50,7 +50,7 @@ class DatabaseSeeder extends Seeder
             'tahun' => 2023,
             'status_pemilihan' => 'tidak_aktif',
             'status_pendaftaran' => 'tidak_aktif',
-            'halaman_daftar' => 'aktif'
+            'halaman_pendaftaran' => 'aktif'
         ]);
 
         Storage::deleteDirectory('pdf_ktm');

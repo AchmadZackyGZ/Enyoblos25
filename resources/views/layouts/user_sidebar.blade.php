@@ -15,15 +15,16 @@
             <span>Home</span></a>
     </li>
 
-    <!-- Divider -->
-    <hr class="sidebar-divider">
 
-    <!-- Nav Item - Panitia -->
-    <li class="nav-item">
-        <a class="nav-link" href="{{ route('daftar_kandidat_form') }}">
-            <i class="fas fa-fw fa-pen"></i>
-            <span>Daftar Menjadi Kandidat</span></a>
-    </li>
+    <!-- Nav Item - Pendaftaran Kandidat -->
+    @if ($pengaturan->halaman_pendaftaran == 'aktif')
+        <hr class="sidebar-divider">
+        <li class="nav-item">
+            <a class="nav-link" href="{{ route('daftar_kandidat_form') }}">
+                <i class="fas fa-fw fa-pen"></i>
+                <span>Daftar Menjadi Kandidat</span></a>
+        </li>
+    @endif
 
     <!-- Divider -->
     <hr class="sidebar-divider d-none d-md-block">

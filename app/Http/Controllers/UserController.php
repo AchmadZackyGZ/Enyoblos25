@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Pengaturan;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -14,10 +15,12 @@ class UserController extends Controller
     public function index()
     {
         $user = User::where('role', '!=', 'master')->get();
+        $pengaturan = Pengaturan::first();
 
         return view('master/master_user', [
             'title' => 'Data User',
-            'user' => $user
+            'user' => $user,
+            'pengaturan' => $pengaturan
         ]);
     }
 

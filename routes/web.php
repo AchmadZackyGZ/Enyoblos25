@@ -49,7 +49,7 @@ Route::middleware(['auth', 'role:panitia,master'])->group(function () {
     Route::delete('/delete-selected/pemilih', [PemilihController::class, 'deleteSelected'])->name('pemilih.delete_selected');
     Route::post('/pemilih/import', [PemilihController::class, 'importPemilih'])->name('pemilih.import');
     Route::get('/template-download', [PanitiaController::class, 'downloadTemplatePemilih'])->name('panitia.download_template_pemilih');
-    Route::resource('/kandidat', KandidatController::class)->only(['index', 'destroy', 'show']);
+    Route::resource('/kandidat', KandidatController::class);
     Route::get('/kandidat/kelengkapan/{idKandidat}/{kelengkapan}', [KandidatController::class, 'cekKelengkapan'])->name('kandidat.cek_kelengkapan');
     Route::get('/kandidat/kelengkapan/{idKandidat}/{kelengkapan}/download', [KandidatController::class, 'downloadKelengkapan'])->name('kandidat.download_kelengkapan');
     Route::post('/kandidat/verifikasi/{idKandidat}', [KandidatController::class, 'verifikasiData'])->name('kandidat.verifikasi_data');

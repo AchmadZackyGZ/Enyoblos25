@@ -9,7 +9,9 @@
         </div>
 
         <div class="card shadow mb-4">
-            <div class="card-header py-3"></div>
+            <div class="card-header py-3">
+                <h6 class="m-0 font-weight-bold text-primary">Pengaturan Pemilihan</h6>
+            </div>
             <div class="card-body">
                 @if (session()->has('success'))
                     <div class="alert alert-success" role="alert">
@@ -35,6 +37,16 @@
                             <option value="aktif" {{ $data->status_pendaftaran == 'aktif' ? 'selected' : '' }}>Aktif
                             </option>
                             <option value="tidak_aktif" {{ $data->status_pendaftaran == 'tidak_aktif' ? 'selected' : '' }}>
+                                Tidak Aktif</option>
+                        </select>
+                    </div>
+                    <div class="mb-3">
+                        <label for="halaman_pendaftaran">Halaman Pendaftaran User</label>
+                        <select name="halaman_pendaftaran" id="halaman_pendaftaran" class="form-control form-control-solid"
+                            required>
+                            <option value="aktif" {{ $data->halaman_pendaftaran == 'aktif' ? 'selected' : '' }}>Aktif
+                            </option>
+                            <option value="tidak_aktif" {{ $data->halaman_pendaftaran == 'tidak_aktif' ? 'selected' : '' }}>
                                 Tidak Aktif</option>
                         </select>
                     </div>

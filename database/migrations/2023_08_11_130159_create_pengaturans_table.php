@@ -17,7 +17,7 @@ return new class extends Migration
             $table->integer('tahun');
             $table->string('status_pemilihan', 15);
             $table->string('status_pendaftaran', 15);
-            $table->string('halaman_daftar', 15);
+            $table->string('halaman_pendaftaran', 15);
             $table->timestamps();
         });
     }

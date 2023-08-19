@@ -122,7 +122,8 @@ class PanitiaController extends Controller
             'nama' => 'required|min:3',
             'tahun' => 'required|numeric',
             'status_pemilihan' => 'required',
-            'status_pendaftaran' => 'required'
+            'status_pendaftaran' => 'required',
+            'halaman_pendaftaran' => 'required'
         ]);
 
         $pengaturan = Pengaturan::first();

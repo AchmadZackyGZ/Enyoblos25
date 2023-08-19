@@ -18,7 +18,6 @@ class KandidatController extends Controller
     public function index()
     {
         $kandidats = Kandidat::with('user')->get();
-        // dd($kandidats->first()->user);
         return view('panitia/data_kandidat', [
             'title' => 'Data Kandidat',
             'kandidats' => $kandidats
@@ -30,13 +29,33 @@ class KandidatController extends Controller
      */
     public function create()
     {
-        $userKandidat = Kandidat::where('id_user', Auth::user()->id)->first();
+        if (Auth::user()->role != 'user') {
+            $userKandidat = null;
+            $hasilSearch = null;
+            if (request('nim')) {
+                $userId = User::where('nim', request('nim'))->first()->id;
+                $userKandidat = Kandidat::where('id_user', $userId)->first();
+                if (!$userKandidat) {
+                    $hasilSearch = User::where('role', 'user')->where('nim', request('nim'))->first();
+                }
+            }
+
+            return view('panitia/tambah_kandidat', [
+                'title' => 'Tambah Kandidat',
+                'hasilSearch' => $hasilSearch
+            ]);
+        }
+
         $pengaturan = Pengaturan::first();
-        return view('user/daftar_kandidat', [
-            "title" => 'Daftar Kandidat',
-            'userKandidat' => $userKandidat,
-            'pengaturan' => $pengaturan
-        ]);
+        if ($pengaturan->halaman_pendaftaran == 'aktif') {
+            $userKandidat = Kandidat::where('id_user', Auth::user()->id)->first();
+            return view('user/daftar_kandidat', [
+                "title" => 'Daftar Kandidat',
+                'userKandidat' => $userKandidat,
+                'pengaturan' => $pengaturan
+            ]);
+        }
+        return redirect()->route('home');
     }
 
     /**
@@ -74,7 +93,11 @@ class KandidatController extends Controller
 
         Kandidat::create($validatedData);
 
-        return redirect()->route('daftar_kandidat_form');
+        if (Auth::user()->role == 'user') {
+            return redirect()->route('daftar_kandidat_form');
+        }
+
+        return redirect()->route('kandidat.index');
     }
 
     /**
