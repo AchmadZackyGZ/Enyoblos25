@@ -42,17 +42,16 @@ class HomeController extends Controller
 
     public function userHome()
     {
-        $pengaturan = $this->periode->first();
-        $userVote = $this->result->where('user_id', Auth::user()->id)->first();
-        $kandidat = $this->candidate->with('user')->where('status', 'Yes')->get();
-        $isUserKandidat = $this->candidate->where('user_id', Auth::user()->id)->first();
+        $periode = $this->periode->first();
+        $voter = $this->result->where('user_id', Auth::user()->id)->first();
+        $candidate = $this->candidate->with('user')->where('status', 'Yes')->get();
+        $isCandidate = $this->candidate->where('user_id', Auth::user()->id)->first();
 
         return view('user/home', [
             'title' => 'Home',
-            'pengaturan' => $pengaturan,
-            'userVote' => $userVote,
-            'kandidat' => $kandidat,
-            'isUserKandidat' => $isUserKandidat
+            'periode' => $periode,
+            'voter' => $voter, 
+            'isCandidate' => $isCandidate
         ]);
 
     }
@@ -60,22 +59,22 @@ class HomeController extends Controller
 
     public function panitiaHome()
     {
-        $idKandidat =$this->candidate->all()->pluck('user_id')->toArray();
-        $jumlahPemilih = User::whereNotIn('id', $idKandidat)->where('role', 'user')->count();
-        $jumlahKandidat = $this->candidate->count();
-        $jumlahVote = $this->result->all()->count();
-        $jumlahPanitia = $this->user->where('role', 'panitia')->count();
+        $candidate_id =$this->candidate->all()->pluck('user_id')->toArray();
+        $votersTotal = User::whereNotIn('id', $candidate_id)->where('role', 'user')->count();
+        $candidatesTotal = $this->candidate->count();
+        $voters = $this->result->all()->count();
+        $commimitteesTotal = $this->user->where('role', 'panitia')->count();
         $persentaseVote = 0;
-        if ($jumlahPemilih > 0) {
-            $persentaseVote = ($jumlahVote / $jumlahPemilih) * 100;
+        if ($votersTotal > 0) {
+            $persentaseVote = ($voters / $votersTotal) * 100;
         }
         return view('panitia/home', [
             'title' => 'Dashboard',
-            'jumlahPemilih' => $jumlahPemilih,
-            'jumlahKandidat' => $jumlahKandidat,
-            'jumlahVote' => $jumlahVote,
+            'votersTotal' => $votersTotal,
+            'candidatesTotal' => $candidatesTotal,
+            'voters' => $voters,
             'persentaseVote' => $persentaseVote,
-            'jumlahPanitia' => $jumlahPanitia
+            'commimitteesTotal' => $commimitteesTotal
         ]);
     }
 

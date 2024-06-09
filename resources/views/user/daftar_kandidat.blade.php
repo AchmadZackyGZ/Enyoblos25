@@ -19,8 +19,8 @@
                         </div>
                     @endforeach
                 @endif
-                @if ($pengaturan->status_pendaftaran == 'aktif')
-                    @if (!$userKandidat)
+                @if ($periode->registration_status == 'yes')
+                    @if (!$candidate)
                         <form action="{{ route('daftar_kandidat_post') }}" method="POST" enctype="multipart/form-data">
                             @csrf
                             <div class="mb-3">

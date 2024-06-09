@@ -3,11 +3,12 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
+use App\Models\Result;
 use App\Models\Periode;
 use App\Models\Candidate;  
 use App\Mail\InfoPemiraMail;
 use Illuminate\Http\Request; 
-use App\Models\Result;
+use App\Http\Requests\PeriodeRequest;
 use Illuminate\Support\Facades\Mail; 
 
 class CommitteeController extends Controller
@@ -28,17 +29,17 @@ class CommitteeController extends Controller
     public function index()
     {
          
-        $dataPanitia =  $this->user->where('role', 'panitia')->get();
+       $committee =  $this->user->where('role', 'panitia')->get();
 
-        $hasilSearch = null;
+        $search = null;
         if (request('nim')) {
-            $hasilSearch =  $this->user->where([['role', '!=', 'panitia'], ['nim', request('nim')]])->first();
+            $search =  $this->user->where([['role', '!=', 'panitia'], ['nim', request('nim')]])->first();
         }
 
         return view('master/data_panitia', [
             'title' => 'Data Panitia',
-            'dataPanitia' => $dataPanitia,
-            'hasilSearch' => $hasilSearch
+            'committee' => $committee,
+            'search' => $search
         ]);
     }
 
@@ -86,15 +87,9 @@ class CommitteeController extends Controller
     /**
      * Update info kpu
      */
-    public function pengaturanPost(Request $request)
+    public function pengaturanPost(PeriodeRequest $request)
     {
-        $validatedData = $request->validate([
-            'name' => 'required|min:3',
-            'year' => 'required|numeric',
-            'election_status' => 'required',
-            'registration_status' => 'required',
-            'registration_page' => 'required'
-        ]);
+        $validatedData = $request->all();
 
         $data = $this->periode->first();
         $data->update($validatedData);
@@ -118,7 +113,7 @@ class CommitteeController extends Controller
         $periode = $this->periode->first();
         return view('panitia/status_pemilihan', [
             'title' => 'Status Pemilihan',
-            'pengaturan' => $periode
+            'periode' => $periode
         ]);
     }
 
@@ -127,13 +122,13 @@ class CommitteeController extends Controller
      */
     public function getDataPemilihan()
     {
-        $dataCalon = $this->candidate->getWithUser();
-        $dataJson = [];
-        foreach ($dataCalon as $c) {
-            array_push($dataJson, [$c->user->name => $this->result->where('candidat_id', $c->id)->count()]);
+        $candidate = $this->candidate->getWithUser();
+        $data = [];
+        foreach ($candidate as $c) {
+            array_push($data, [$c->user->name => $this->result->where('candidat_id', $c->id)->count()]);
         }
 
-        return response()->json($dataJson);
+        return response()->json($data);
     }
 
     /**

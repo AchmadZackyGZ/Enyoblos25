@@ -22,12 +22,11 @@ class UserController extends Controller
     public function index()
     {
         $user = User::where('role', '!=', 'master')->get();
-        $pengaturan = $this->periode->first();
+        $periode = $this->periode->first();
 
         return view('master/master_user', [
             'title' => 'Data User',
-            'user' => $user,
-            'pengaturan' => $pengaturan
+            'user' => $user
         ]);
     }
 

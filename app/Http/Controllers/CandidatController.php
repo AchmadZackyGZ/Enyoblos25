@@ -42,32 +42,35 @@ class CandidatController extends Controller
     public function create()
     {
         if (Auth::user()->role != 'user') {
-            $userKandidat = null;
-            $hasilSearch = null;
+            $candidate = null;
+            $search = null;
             if (request('nim')) {
                 $userId = $this->user->where('nim', request('nim'))->first()->id;
-                $userKandidat = $this->candidate->where('user_id', $userId)->first();
-                if (!$userKandidat) {
-                    $hasilSearch =  $this->user->where('role', 'user')->where('nim', request('nim'))->first();
+                $candidate = $this->candidate->where('user_id', $userId)->first();
+                if (!$candidate) {
+                    $search =  $this->user->where('role', 'user')->where('nim', request('nim'))->first();
                 }
             }
 
             return view('panitia/tambah_kandidat', [
                 'title' => 'Tambah Kandidat',
-                'hasilSearch' => $hasilSearch
+                'data' => $search
             ]);
         }
 
         $periode = $this->periode->first();
-        if ($periode->registration_page == 'ya') {
-            $userKandidat = $this->candidate->where('user_id', Auth::user()->id)->first();
+
+        if ($periode->registration_page == 'Active') {
+            $candidate = $this->candidate->where('user_id', Auth::user()->id)->first();
             return view('user/daftar_kandidat', [
                 "title" => 'Daftar Kandidat',
-                'userKandidat' => $userKandidat,
+                'candidate' => $candidate,
                 'pengaturan' => $periode
             ]);
         }
+
         return redirect()->route('home');
+
     }
 
     /**
@@ -80,17 +83,17 @@ class CandidatController extends Controller
         $validatedData['user_id'] = $this->user->where('nim', $request->nim)->first()->id;
 
         // Simpan data ke storage
-        $pdf_ktm = $request->nim . '_' . 'pdf_ktm_' . $request->file('student_card')->getClientOriginalName();
-        $suket_organisasi = $request->nim . '_' . 'suket_organisasi_' . $request->file('organization_letter')->getClientOriginalName();
-        $suket_lkmm_td = $request->nim . '_' . 'suket_lkmm_td_' . $request->file('lkmtd_letter')->getClientOriginalName();
-        $transkrip_nilai = $request->nim . '_' . 'transkrip_nilai_' . $request->file('transcript')->getClientOriginalName();
-        $foto = $request->nim . '_' . 'foto_' . $request->file('photo')->getClientOriginalName();
+        $student_card = $request->nim . '_' . 'pdf_ktm_' . $request->file('student_card')->getClientOriginalName();
+        $organization_letter = $request->nim . '_' . 'suket_organisasi_' . $request->file('organization_letter')->getClientOriginalName();
+        $lkmtd_letter = $request->nim . '_' . 'suket_lkmm_td_' . $request->file('lkmtd_letter')->getClientOriginalName();
+        $transcript = $request->nim . '_' . 'transkrip_nilai_' . $request->file('transcript')->getClientOriginalName();
+        $photo = $request->nim . '_' . 'foto_' . $request->file('photo')->getClientOriginalName();
 
-        $validatedData['student_card'] = $request->file('student_card')->storeAs('pdf_ktm', $pdf_ktm, ['disk' => 'local']);
-        $validatedData['organization_letter'] = $request->file('organization_letter')->storeAs('suket_organisasi', $suket_organisasi, ['disk' => 'local']);
-        $validatedData['lkmtd_letter'] = $request->file('lkmtd_letter')->storeAs('suket_lkmm_td', $suket_lkmm_td, ['disk' => 'local']);
-        $validatedData['transcript'] = $request->file('transcript')->storeAs('transkrip_nilai', $transkrip_nilai, ['disk' => 'local']);
-        $validatedData['photo'] = $request->file('photo')->storeAs('foto', $foto, ['disk' => 'public']);
+        $validatedData['student_card'] = $request->file('student_card')->storeAs('pdf_ktm', $student_card, ['disk' => 'local']);
+        $validatedData['organization_letter'] = $request->file('organization_letter')->storeAs('suket_organisasi', $organization_letter, ['disk' => 'local']);
+        $validatedData['lkmtd_letter'] = $request->file('lkmtd_letter')->storeAs('suket_lkmm_td', $lkmtd_letter, ['disk' => 'local']);
+        $validatedData['transcript'] = $request->file('transcript')->storeAs('transkrip_nilai', $transcript, ['disk' => 'local']);
+        $validatedData['photo'] = $request->file('photo')->storeAs('foto', $photo, ['disk' => 'public']);
 
         $validatedData['status'] = 'No';
 
@@ -134,13 +137,13 @@ class CandidatController extends Controller
     /**
      * Cek Kelengkapan Kandidat
      */
-    public function cekKelengkapan(string $id, string $kelengkapan)
+    public function cekKelengkapan(string $id, string $object)
     {
-        $dataKandidat = $this->candidate->find($id)->toArray(); 
-        if (!isset($dataKandidat[$kelengkapan])) {
+        $data = $this->candidate->find($id)->toArray(); 
+        if (!isset($data[$object])) {
             return abort(404);
         }
-        $filePath = $dataKandidat[$kelengkapan];
+        $filePath = $data[$object];
         
         return response()->file(storage_path('app/' . $filePath));
     }
@@ -148,14 +151,14 @@ class CandidatController extends Controller
     /**
      * Download kelengkapan kandidat
      */
-    public function downloadKelengkapan(string $id, string $kelengkapan)
+    public function downloadKelengkapan(string $id, string $object)
     {
-        $dataKandidat = $this->candidate->find($id)->toArray();
-        if (!isset($dataKandidat[$kelengkapan])) {
+        $data = $this->candidate->find($id)->toArray();
+        if (!isset($data[$object])) {
             return abort(404);
         }
 
-        $filePath = $dataKandidat[$kelengkapan];
+        $filePath = $data[$object];
         return response()->download(storage_path('app/' . $filePath));
     }
 
@@ -164,8 +167,8 @@ class CandidatController extends Controller
      */
     public function verifikasiData(string $id)
     {
-        $kandidat = $this->candidate->find($id);
-        $kandidat->update([
+        $data = $this->candidate->find($id);
+        $data->update([
             'status' => 'yes'
         ]);
 
