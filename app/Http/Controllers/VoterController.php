@@ -13,22 +13,18 @@ use Maatwebsite\Excel\Facades\Excel;
 
 class VoterController extends Controller
 {
-    private $candidat;
-    private $periode;
-    private $result;
+    private $candidate; 
     private $user;
     
-    public function __construct(Candidate $candidat, Periode $periode, Result $result, User $user)
+    public function __construct(Candidate $candidate, Periode $periode, Result $result, User $user)
     {
-        $this->user = $user;
-        $this->periode = $periode;
-        $this->candidat = $candidat;
-        $this->result = $result;
+        $this->user = $user; 
+       $this->candidate = $candidate; 
     }
     
     public function index()
     { 
-        $idKandidat = $this->candidat->all()->pluck('user_id')->toArray();
+        $idKandidat =$this->candidate->all()->pluck('user_id')->toArray();
         $dataPemilih =$this->user->whereNotIn('id', $idKandidat)->where('role', 'user')->get();
         return view('panitia/data_pemilih', [
             'title' => 'Data Pemilih',
@@ -61,12 +57,6 @@ class VoterController extends Controller
     }
 
     
-    
-    public function destroy(string $id)
-    {
-        dd($id);
-    }
-
     /**
      * Digunakan untuk import data pemilih dari file excel.
      */

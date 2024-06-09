@@ -11,16 +11,16 @@ use Illuminate\Support\Facades\Auth;
 class HomeController extends Controller
 {
 
-    private $candidat;
+    private $candidate;
     private $periode;
     private $result;
     private $user;
     
-    public function __construct(Candidate $candidat, Periode $periode, Result $result, User $user)
+    public function __construct(Candidate $candidate, Periode $periode, Result $result, User $user)
     {
         $this->user = $user;
         $this->periode = $periode;
-        $this->candidat = $candidat;
+        $this->candidate = $candidate;
         $this->result = $result;
     }
 
@@ -44,8 +44,8 @@ class HomeController extends Controller
     {
         $pengaturan = $this->periode->first();
         $userVote = $this->result->where('user_id', Auth::user()->id)->first();
-        $kandidat = $this->candidat->with('user')->where('status', 'Yes')->get();
-        $isUserKandidat = $this->candidat->where('user_id', Auth::user()->id)->first();
+        $kandidat = $this->candidate->with('user')->where('status', 'Yes')->get();
+        $isUserKandidat = $this->candidate->where('user_id', Auth::user()->id)->first();
 
         return view('user/home', [
             'title' => 'Home',
@@ -60,9 +60,9 @@ class HomeController extends Controller
 
     public function panitiaHome()
     {
-        $idKandidat =$this->candidat->all()->pluck('user_id')->toArray();
+        $idKandidat =$this->candidate->all()->pluck('user_id')->toArray();
         $jumlahPemilih = User::whereNotIn('id', $idKandidat)->where('role', 'user')->count();
-        $jumlahKandidat = $this->candidat->count();
+        $jumlahKandidat = $this->candidate->count();
         $jumlahVote = $this->result->all()->count();
         $jumlahPanitia = $this->user->where('role', 'panitia')->count();
         $persentaseVote = 0;

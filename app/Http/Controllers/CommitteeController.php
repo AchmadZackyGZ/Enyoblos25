@@ -13,15 +13,15 @@ use Illuminate\Support\Facades\Mail;
 class CommitteeController extends Controller
 {
     
-    private $candidat;
+    private $candidate;
     private $periode;
     private $result;
     private $user;
-    public function __construct(Candidate $candidat, Periode $periode, Result $result, User $user)
+    public function __construct(Candidate $candidate, Periode $periode, Result $result, User $user)
     {
         $this->user = $user;
         $this->periode = $periode;
-        $this->candidat = $candidat;
+        $this->candidate = $candidate;
         $this->result = $result;
     }
 
@@ -42,12 +42,7 @@ class CommitteeController extends Controller
         ]);
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-    }
+     
 
     /**
      * Store a newly created resource in storage.
@@ -132,7 +127,7 @@ class CommitteeController extends Controller
      */
     public function getDataPemilihan()
     {
-        $dataCalon = $this->candidat->getWithUser();
+        $dataCalon = $this->candidate->getWithUser();
         $dataJson = [];
         foreach ($dataCalon as $c) {
             array_push($dataJson, [$c->user->name => $this->result->where('candidat_id', $c->id)->count()]);

@@ -13,12 +13,12 @@ use Illuminate\Support\Facades\Storage;
 
 class CandidatController extends Controller
 {
-    private $candidat;
+    private $candidate;
     private $user;
     private $periode;
     private $result;
-    public function __construct(Candidate $candidat, User $user, Periode $periode, Result $result){
-      $this->candidat = $candidat;
+    public function __construct(Candidate $candidate, User $user, Periode $periode, Result $result){
+      $this->candidate = $candidate;
       $this->user = $user;
       $this->periode = $periode;
       $this->result = $result;
@@ -27,7 +27,7 @@ class CandidatController extends Controller
 
     public function index()
     {
-        $data = $this->candidat->getWithUser();
+        $data = $this->candidate->getWithUser();
 
         return view('panitia/data_kandidat', [
             'title' => 'Data Kandidat',
@@ -46,7 +46,7 @@ class CandidatController extends Controller
             $hasilSearch = null;
             if (request('nim')) {
                 $userId = $this->user->where('nim', request('nim'))->first()->id;
-                $userKandidat = $this->candidat->where('user_id', $userId)->first();
+                $userKandidat = $this->candidate->where('user_id', $userId)->first();
                 if (!$userKandidat) {
                     $hasilSearch =  $this->user->where('role', 'user')->where('nim', request('nim'))->first();
                 }
@@ -60,7 +60,7 @@ class CandidatController extends Controller
 
         $periode = $this->periode->first();
         if ($periode->registration_page == 'ya') {
-            $userKandidat = $this->candidat->where('user_id', Auth::user()->id)->first();
+            $userKandidat = $this->candidate->where('user_id', Auth::user()->id)->first();
             return view('user/daftar_kandidat', [
                 "title" => 'Daftar Kandidat',
                 'userKandidat' => $userKandidat,
@@ -94,7 +94,7 @@ class CandidatController extends Controller
 
         $validatedData['status'] = 'No';
 
-        $this->candidat->create($validatedData);
+        $this->candidate->create($validatedData);
 
         if (Auth::user()->role == 'user') {
             return redirect()->route('daftar_kandidat_form');
@@ -106,7 +106,7 @@ class CandidatController extends Controller
      
     public function show(string $id)
     {
-        $data = $this->candidat->findWithUser($id);
+        $data = $this->candidate->findWithUser($id);
         if (!$data) {
             return abort(404);
         }
@@ -116,29 +116,11 @@ class CandidatController extends Controller
         ]);
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(string $id)
-    {
-        //
-    }
 
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, string $id)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     */
     public function destroy(string $id)
     {
 
-        $data = $this->candidat->find($id);
+        $data = $this->candidate->find($id);
         Storage::delete($data->student_card);
         Storage::delete($data->organization_letter);
         Storage::delete($data->lkmtd_letter);
@@ -154,7 +136,7 @@ class CandidatController extends Controller
      */
     public function cekKelengkapan(string $id, string $kelengkapan)
     {
-        $dataKandidat = $this->candidat->find($id)->toArray(); 
+        $dataKandidat = $this->candidate->find($id)->toArray(); 
         if (!isset($dataKandidat[$kelengkapan])) {
             return abort(404);
         }
@@ -168,7 +150,7 @@ class CandidatController extends Controller
      */
     public function downloadKelengkapan(string $id, string $kelengkapan)
     {
-        $dataKandidat = $this->candidat->find($id)->toArray();
+        $dataKandidat = $this->candidate->find($id)->toArray();
         if (!isset($dataKandidat[$kelengkapan])) {
             return abort(404);
         }
@@ -182,7 +164,7 @@ class CandidatController extends Controller
      */
     public function verifikasiData(string $id)
     {
-        $kandidat = $this->candidat->find($id);
+        $kandidat = $this->candidate->find($id);
         $kandidat->update([
             'status' => 'yes'
         ]);
