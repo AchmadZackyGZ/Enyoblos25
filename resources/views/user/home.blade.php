@@ -6,11 +6,11 @@
             {{ session('success') }}
         </div>
     @endif
-    @if ($pengaturan->status_pemilihan == 'aktif')
+    @if ($pengaturan->election_status == 'yes')
         @if (!$userVote)
             <div class="container-fluid">
                 <center>
-                    <h1>{{ $pengaturan->nama }} {{ $pengaturan->tahun }}</h1>
+                    <h1>{{ $pengaturan->name }} {{ $pengaturan->year }}</h1>
                 </center>
                 @if ($isUserKandidat)
                     <div class="alert alert-danger" role="alert">
@@ -27,7 +27,7 @@
                                 <div class="card-body">
                                     <div class="row justify-content-center">
                                         <div class="">
-                                            <img src={{ asset('storage/' . $k->foto) }} alt="" width="288"
+                                            <img src="{{ asset('storage/' . $k->photo) }}" alt="" width="288"
                                                 height="432">
                                         </div>
                                     </div>
@@ -80,7 +80,7 @@
                                                 <p class="mb-0">VISI</p>
                                             </div>
                                             <div class="col-sm-9">
-                                                <p class="text-muted mb-0">{!! nl2br($k->visi) !!}</p>
+                                                <p class="text-muted mb-0">{!! nl2br($k->vision) !!}</p>
                                             </div>
                                         </div>
                                         <hr>
@@ -89,7 +89,7 @@
                                                 <p class="mb-0">MISI</p>
                                             </div>
                                             <div class="col-sm-9">
-                                                <p class="text-muted mb-0">{!! nl2br($k->misi) !!}</p>
+                                                <p class="text-muted mb-0">{!! nl2br($k->mission) !!}</p>
                                             </div>
                                         </div>
                                     </div>

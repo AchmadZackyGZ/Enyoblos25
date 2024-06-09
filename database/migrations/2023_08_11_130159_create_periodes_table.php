@@ -11,10 +11,13 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('hasil_pemilihans', function (Blueprint $table) {
+        Schema::create('periodes', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('id_pemilih')->references('id')->on('users')->cascadeOnDelete();
-            $table->foreignId('id_kandidat')->references('id')->on('kandidats')->cascadeOnDelete();
+            $table->string('name');
+            $table->integer('year');
+            $table->enum('election_status', ['yes', 'no']);
+            $table->enum('registration_status', ['yes', 'no']);
+            $table->enum('registration_page', ['Active', 'notActive']);
             $table->timestamps();
         });
     }
@@ -24,6 +27,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('hasil_pemilihans');
+        Schema::dropIfExists('periodes');
     }
 };

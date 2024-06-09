@@ -11,13 +11,10 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('pengaturans', function (Blueprint $table) {
+        Schema::create('results', function (Blueprint $table) {
             $table->id();
-            $table->string('nama');
-            $table->integer('tahun');
-            $table->string('status_pemilihan', 15);
-            $table->string('status_pendaftaran', 15);
-            $table->string('halaman_pendaftaran', 15);
+            $table->foreignId('user_id')->references('id')->on('users')->cascadeOnDelete();
+            $table->foreignId('candidat_id')->references('id')->on('candidates')->cascadeOnDelete();
             $table->timestamps();
         });
     }
@@ -27,6 +24,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('pengaturans');
+        Schema::dropIfExists('results');
     }
 };

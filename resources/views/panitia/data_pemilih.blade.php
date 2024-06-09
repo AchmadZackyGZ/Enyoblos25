@@ -60,7 +60,7 @@
                                         <td>{{ $d->nim }}</td>
                                         <td>{{ $d->name }}</td>
                                         <td>{{ $d->email }}</td>
-                                        <td>{{ $d->angkatan }}</td>
+                                        <td>{{ $d->cohort }}</td>
                                         <td>
                                             <div class="d-flex">
                                                 <a href="{{ route('kirim_email_user', $d->id) }}"

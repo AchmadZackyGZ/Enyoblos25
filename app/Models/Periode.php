@@ -5,12 +5,9 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class HasilPemilihan extends Model
+class Periode extends Model
 {
     use HasFactory;
 
-    protected $fillable = [
-        'id_pemilih',
-        'id_kandidat'
-    ];
+    protected $guarded = ['id'];
 }
