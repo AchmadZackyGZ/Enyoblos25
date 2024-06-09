@@ -51,13 +51,14 @@ class HomeController extends Controller
             'title' => 'Home',
             'periode' => $periode,
             'voter' => $voter, 
+            'candidate' => $candidate,
             'isCandidate' => $isCandidate
         ]);
 
     }
 
 
-    public function panitiaHome()
+    public function committeeHome()
     {
         $candidate_id =$this->candidate->all()->pluck('user_id')->toArray();
         $votersTotal = User::whereNotIn('id', $candidate_id)->where('role', 'user')->count();

@@ -75,7 +75,7 @@ class CommitteeController extends Controller
     /**
      * Form info kpu
      */
-    public function pengaturan()
+    public function periode()
     {
         $data = $this->periode->first();
         return view('panitia/pengaturan', [
@@ -87,7 +87,7 @@ class CommitteeController extends Controller
     /**
      * Update info kpu
      */
-    public function pengaturanPost(PeriodeRequest $request)
+    public function updateperiode(PeriodeRequest $request)
     {
         $validatedData = $request->all();
 
@@ -100,7 +100,7 @@ class CommitteeController extends Controller
     /**
      * Download template untuk import pemilih dari excel
      */
-    public function downloadTemplatePemilih()
+    public function downloadVoterTemplate()
     {
         return response()->download(storage_path('app/template/Template Import Pemilih.xlsx'));
     }
@@ -108,7 +108,7 @@ class CommitteeController extends Controller
     /**
      * Cek status pemilihan
      */
-    public function statusPemilihan()
+    public function electionStatus()
     {
         $periode = $this->periode->first();
         return view('panitia/status_pemilihan', [
@@ -120,7 +120,7 @@ class CommitteeController extends Controller
     /**
      * API ambil data pemilihan
      */
-    public function getDataPemilihan()
+    public function getDataElection()
     {
         $candidate = $this->candidate->getWithUser();
         $data = [];
@@ -134,7 +134,7 @@ class CommitteeController extends Controller
     /**
      * Kirim email info pemira ke user
      */
-    public function kirimEmail($id)
+    public function sendEmail($id)
     {
         $user = $this->user->find($id);
 
@@ -154,7 +154,7 @@ class CommitteeController extends Controller
     /**
      * Kirim email ke semua user
      */
-    public function kirimEmailAll()
+    public function sendAllEmail()
     {
         $users = $this->user->where('role', '!=', 'master')->get();
 

@@ -41,6 +41,8 @@ class CandidatController extends Controller
      */
     public function create()
     {
+        $periode = $this->periode->first();
+
         if (Auth::user()->role != 'user') {
             $candidate = null;
             $search = null;
@@ -54,6 +56,7 @@ class CandidatController extends Controller
 
             return view('panitia/tambah_kandidat', [
                 'title' => 'Tambah Kandidat',
+                'periode' => $periode,
                 'data' => $search
             ]);
         }
@@ -65,7 +68,7 @@ class CandidatController extends Controller
             return view('user/daftar_kandidat', [
                 "title" => 'Daftar Kandidat',
                 'candidate' => $candidate,
-                'pengaturan' => $periode
+                'periode' => $periode
             ]);
         }
 
@@ -137,7 +140,7 @@ class CandidatController extends Controller
     /**
      * Cek Kelengkapan Kandidat
      */
-    public function cekKelengkapan(string $id, string $object)
+    public function checkDocuments(string $id, string $object)
     {
         $data = $this->candidate->find($id)->toArray(); 
         if (!isset($data[$object])) {
@@ -151,7 +154,7 @@ class CandidatController extends Controller
     /**
      * Download kelengkapan kandidat
      */
-    public function downloadKelengkapan(string $id, string $object)
+    public function downloadDocuments(string $id, string $object)
     {
         $data = $this->candidate->find($id)->toArray();
         if (!isset($data[$object])) {

@@ -107,7 +107,7 @@
                                         <td>{{ $d->nim }}</td>
                                         <td>{{ $d->name }}</td>
                                         <td>{{ $d->email }}</td>
-                                        <td>{{ $d->angkatan }}</td>
+                                        <td>{{ $d->cohort }}</td>
                                     </tr>
                                 @endforeach
                             </tbody>

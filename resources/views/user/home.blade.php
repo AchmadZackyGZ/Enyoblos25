@@ -12,13 +12,13 @@
                 <center>
                     <h1>{{ $periode->name }} {{ $periode->year }}</h1>
                 </center>
-                @if ($isUserKandidat)
+                @if ($isCandidate)
                     <div class="alert alert-danger" role="alert">
                         Anda telah mendaftar sebagai kandidat, tidak diperbolehkan melakukan voting.
                     </div>
                 @endif
                 <div class="row justify-content-center my-0 my-md-3">
-                    @foreach ($kandidat as $k)
+                    @foreach ($candidate as $k)
                         <div class="col-12 col-md-6 col-lg-4">
                             <div class="card shadow mb-4">
                                 <div class="card-header py-3 text-center">

@@ -60,7 +60,7 @@ class VoterController extends Controller
     /**
      * Digunakan untuk import data pemilih dari file excel.
      */
-    public function importPemilih(Request $request)
+    public function importVoter(Request $request)
     {
         $validatedData = $request->validate([
             'fileImport' => 'required|mimes:xlsx'
