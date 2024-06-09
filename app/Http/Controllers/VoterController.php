@@ -2,23 +2,34 @@
 
 namespace App\Http\Controllers;
 
-use App\Imports\ImportPemilih;
-use App\Imports\PemilihImport;
-use App\Models\Kandidat;
 use App\Models\User;
+use App\Models\Result;
+use App\Models\Periode;
+use App\Models\Candidate; 
 use Illuminate\Http\Request;
+use App\Imports\ImportPemilih; 
+use App\Http\Requests\UserRequest;
 use Maatwebsite\Excel\Facades\Excel;
 
-class PemilihController extends Controller
+class VoterController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
-    public function index()
+    private $candidat;
+    private $periode;
+    private $result;
+    private $user;
+    
+    public function __construct(Candidate $candidat, Periode $periode, Result $result, User $user)
     {
-        // $dataPemilih = User::where('role', 'user')->get();
-        $idKandidat = Kandidat::all()->pluck('id_user')->toArray();
-        $dataPemilih = User::whereNotIn('id', $idKandidat)->where('role', 'user')->get();
+        $this->user = $user;
+        $this->periode = $periode;
+        $this->candidat = $candidat;
+        $this->result = $result;
+    }
+    
+    public function index()
+    { 
+        $idKandidat = $this->candidat->all()->pluck('user_id')->toArray();
+        $dataPemilih =$this->user->whereNotIn('id', $idKandidat)->where('role', 'user')->get();
         return view('panitia/data_pemilih', [
             'title' => 'Data Pemilih',
             'dataPemilih' => $dataPemilih
@@ -38,49 +49,19 @@ class PemilihController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(UserRequest $request)
     {
-        $validatedData = $request->validate([
-            'nim' => 'required|min:10|max:10|unique:users',
-            'name' => 'required|min:3|max:255',
-            'email' => 'required|unique:users',
-            'angkatan' => 'required|min:4'
-        ]);
+        $validatedData = $request->all();
 
         $validatedData['password'] = $validatedData['nim'] . '_pemira2023';
 
-        User::create($validatedData);
+        $this->user->create($validatedData);
 
         return redirect()->route('pemilih.index')->with('success', 'Data Berhasil Ditambah');
     }
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(string $id)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(string $id)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, string $id)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     */
+    
+    
     public function destroy(string $id)
     {
         dd($id);
@@ -100,16 +81,15 @@ class PemilihController extends Controller
         return redirect()->back()->with('success', 'Data Berhasil Diimport');
     }
 
-    /**
-     * Menghapus data pemilih yang dipilih
-     */
+    
     public function deleteSelected(Request $request)
     {
         if ($request->ids) {
-            User::whereIn('id', $request->ids)->delete();
+            $this->user->whereIn('id', $request->ids)->delete();
             return redirect()->route('pemilih.index')->with('success', 'Data berhasil dihapus');
         }
 
         return redirect()->route('pemilih.index');
     }
+
 }

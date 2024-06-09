@@ -37,12 +37,12 @@
                             </tr>
                         </thead>
                         <tbody>
-                            @foreach ($kandidats as $k)
+                            @foreach ($data as $k)
                                 <tr>
                                     <td>{{ $k->user->nim }}</td>
                                     <td>{{ $k->user->name }}</td>
                                     <td><span
-                                            class="badge badge-pill badge-{{ $k->status == 'sudah_diverifikasi' ? 'success' : 'danger' }}">{{ $k->status == 'sudah_diverifikasi' ? 'Sudah Diverifikasi' : 'Belum Diverifikasi' }}</span>
+                                            class="badge badge-pill badge-{{ $k->status == 'yes' ? 'success' : 'danger' }}">{{ $k->status == 'yes' ? 'Sudah Diverifikasi' : 'Belum Diverifikasi' }}</span>
                                     </td>
                                     <td>
                                         <div class="d-flex">

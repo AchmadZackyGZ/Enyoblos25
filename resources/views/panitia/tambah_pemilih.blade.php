@@ -39,10 +39,10 @@
                             value="{{ old('email') }}">
                     </div>
                     <div class="mb-3">
-                        <label for="angkatan">Angkatan</label>
-                        <input class="form-control form-control-solid @error('angkatan') is-invalid @enderror"
-                            id="angkatanInput" type="number" placeholder="2023" name="angkatan" required
-                            value="{{ old('angkatan') }}">
+                        <label for="cohort">Angkatan</label>
+                        <input class="form-control form-control-solid @error('cohort') is-invalid @enderror"
+                            id="cohortInput" type="number" placeholder="2023" name="cohort" required
+                            value="{{ old('cohort') }}">
                     </div>
                     <div class="d-flex justify-content-end">
                         <button type="submit" class="btn btn-primary">Tambah</button>

@@ -2,15 +2,29 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\HasilPemilihan;
-use App\Models\Kandidat;
-use App\Models\Pengaturan;
 use App\Models\User;
-use Illuminate\Http\Request;
+use App\Models\Result;
+use App\Models\Periode;
+use App\Models\Candidate; 
 use Illuminate\Support\Facades\Auth;
 
 class HomeController extends Controller
 {
+
+    private $candidat;
+    private $periode;
+    private $result;
+    private $user;
+    
+    public function __construct(Candidate $candidat, Periode $periode, Result $result, User $user)
+    {
+        $this->user = $user;
+        $this->periode = $periode;
+        $this->candidat = $candidat;
+        $this->result = $result;
+    }
+
+
     public function index()
     {
         if (Auth::user()->role == 'panitia' || Auth::user()->role == 'master') {
@@ -28,10 +42,11 @@ class HomeController extends Controller
 
     public function userHome()
     {
-        $pengaturan = Pengaturan::first();
-        $userVote = HasilPemilihan::where('id_pemilih', Auth::user()->id)->first();
-        $kandidat = Kandidat::with('user')->where('status', 'sudah_diverifikasi')->get();
-        $isUserKandidat = Kandidat::where('id_user', Auth::user()->id)->first();
+        $pengaturan = $this->periode->first();
+        $userVote = $this->result->where('user_id', Auth::user()->id)->first();
+        $kandidat = $this->candidat->with('user')->where('status', 'Yes')->get();
+        $isUserKandidat = $this->candidat->where('user_id', Auth::user()->id)->first();
+
         return view('user/home', [
             'title' => 'Home',
             'pengaturan' => $pengaturan,
@@ -39,16 +54,17 @@ class HomeController extends Controller
             'kandidat' => $kandidat,
             'isUserKandidat' => $isUserKandidat
         ]);
+
     }
 
 
     public function panitiaHome()
     {
-        $idKandidat = Kandidat::all()->pluck('id_user')->toArray();
+        $idKandidat =$this->candidat->all()->pluck('user_id')->toArray();
         $jumlahPemilih = User::whereNotIn('id', $idKandidat)->where('role', 'user')->count();
-        $jumlahKandidat = Kandidat::count();
-        $jumlahVote = HasilPemilihan::all()->count();
-        $jumlahPanitia = User::where('role', 'panitia')->count();
+        $jumlahKandidat = $this->candidat->count();
+        $jumlahVote = $this->result->all()->count();
+        $jumlahPanitia = $this->user->where('role', 'panitia')->count();
         $persentaseVote = 0;
         if ($jumlahPemilih > 0) {
             $persentaseVote = ($jumlahVote / $jumlahPemilih) * 100;

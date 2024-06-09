@@ -4,9 +4,10 @@ namespace Database\Seeders;
 
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 
-use App\Models\InfoPemilihan;
-use App\Models\Pengaturan;
 use App\Models\User;
+use App\Models\Periode;
+use App\Models\Pengaturan;
+use App\Models\InfoPemilihan;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
@@ -33,24 +34,25 @@ class DatabaseSeeder extends Seeder
             'name' => 'Master',
             'email' => 'master@kpuif.com',
             'password' => bcrypt('masterkpuif123'),
-            'angkatan' => '0',
+            'cohort' => '0',
             'role' => 'master',
         ]);
+
         User::insert([
             'nim' => 3012110013,
             'name' => 'Guntur Anugroho Putra Abadi',
             'email' => 'guntur.abadi21@student.uisi.ac.id',
             'password' => bcrypt('guntur123'),
-            'angkatan' => '2021',
+            'cohort' => '2021',
             'role' => 'panitia',
         ]);
 
-        Pengaturan::insert([
-            'nama' => 'Nama Pemilihan',
-            'tahun' => 2023,
-            'status_pemilihan' => 'tidak_aktif',
-            'status_pendaftaran' => 'tidak_aktif',
-            'halaman_pendaftaran' => 'aktif'
+        Periode::insert([
+            'name' => 'Nama Pemilihan',
+            'year' => 2023,
+            'election_status' => 'No',
+            'registration_status' => 'No',
+            'registration_page' => 'notActive'
         ]);
 
         Storage::deleteDirectory('pdf_ktm');

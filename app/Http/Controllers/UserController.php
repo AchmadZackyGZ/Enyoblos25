@@ -2,20 +2,27 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Pengaturan;
-use App\Models\User;
+use App\Models\User; 
+use App\Models\Periode; 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
 class UserController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
+     
+    private $periode; 
+    private $user;
+    
+    public function __construct(Periode $periode, User $user)
+    {
+        $this->user = $user;
+        $this->periode = $periode; 
+    }
+    
     public function index()
     {
         $user = User::where('role', '!=', 'master')->get();
-        $pengaturan = Pengaturan::first();
+        $pengaturan = $this->periode->first();
 
         return view('master/master_user', [
             'title' => 'Data User',
@@ -69,9 +76,8 @@ class UserController extends Controller
      */
     public function destroy(string $id)
     {
-        $user = User::find($id);
+        $user = $this->user->find($id);
         $user->delete();
-
         return redirect()->route('user.index')->with('success', 'Berhasil menghapus user');
     }
 
@@ -80,12 +86,13 @@ class UserController extends Controller
      */
     public function resetPassword($id)
     {
-        $user = User::find($id);
+        $user = $this->user->find($id);
         $user->update([
             'password' => $user->nim . '_pemira2023'
-        ]);
+        ]); 
 
         return redirect()->route('user.index')->with('success', 'Berhasil reset password');
+
     }
 
     /**
@@ -96,7 +103,8 @@ class UserController extends Controller
         $validatedData = $request->validate([
             'newPassword' => 'required|min:8'
         ]);
-        $user = User::find(Auth::user()->id);
+        
+        $user = $this->user->find(Auth::user()->id);
         $user->update([
             'password' => $validatedData['newPassword']
         ]);

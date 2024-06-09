@@ -21,42 +21,42 @@
                 <form action="{{ route('pengaturan_post') }}" method="POST" enctype="multipart/form-data">
                     @csrf
                     <div class="mb-3">
-                        <label for="nama">Nama Pemilihan</label>
-                        <input class="form-control form-control-solid" id="nama" type="text"
-                            placeholder="Nama Pemilihan" value="{{ $data->nama }}" name="nama" required>
+                        <label for="name">Nama Pemilihan</label>
+                        <input class="form-control form-control-solid" id="name" type="text"
+                            placeholder="Nama Pemilihan" value="{{ $data->name }}" name="name" required>
                     </div>
                     <div class="mb-3">
-                        <label for="tahun">Tahun</label>
-                        <input class="form-control form-control-solid" id="tahun" type="number" placeholder="2023"
-                            value="{{ $data->tahun }}" name="tahun" required>
+                        <label for="year">Tahun</label>
+                        <input class="form-control form-control-solid" id="year" type="number" placeholder="2023"
+                            value="{{ $data->year }}" name="year" required>
                     </div>
                     <div class="mb-3">
-                        <label for="status_pendaftaran">Status Pendaftaran</label>
-                        <select name="status_pendaftaran" id="status_pendaftaran" class="form-control form-control-solid"
+                        <label for="registration_status">Status Pendaftaran</label>
+                        <select name="registration_status" id="registration_status" class="form-control form-control-solid"
                             required>
-                            <option value="aktif" {{ $data->status_pendaftaran == 'aktif' ? 'selected' : '' }}>Aktif
+                            <option value="yes" {{ $data->registration_status == 'aktif' ? 'selected' : '' }}>Aktif
                             </option>
-                            <option value="tidak_aktif" {{ $data->status_pendaftaran == 'tidak_aktif' ? 'selected' : '' }}>
+                            <option value="no" {{ $data->registration_status == 'tidak_aktif' ? 'selected' : '' }}>
                                 Tidak Aktif</option>
                         </select>
                     </div>
                     <div class="mb-3">
-                        <label for="halaman_pendaftaran">Halaman Pendaftaran User</label>
-                        <select name="halaman_pendaftaran" id="halaman_pendaftaran" class="form-control form-control-solid"
+                        <label for="registration_page">Halaman Pendaftaran User</label>
+                        <select name="registration_page" id="registration_page" class="form-control form-control-solid"
                             required>
-                            <option value="aktif" {{ $data->halaman_pendaftaran == 'aktif' ? 'selected' : '' }}>Aktif
+                            <option value="active" {{ $data->registration_page == 'aktif' ? 'selected' : '' }}>Aktif
                             </option>
-                            <option value="tidak_aktif" {{ $data->halaman_pendaftaran == 'tidak_aktif' ? 'selected' : '' }}>
+                            <option value="notActive" {{ $data->registration_page == 'tidak_aktif' ? 'selected' : '' }}>
                                 Tidak Aktif</option>
                         </select>
                     </div>
                     <div class="mb-3">
-                        <label for="status_pemilihan">Status Pemilihan</label>
-                        <select name="status_pemilihan" id="status_pemilihan" class="form-control form-control-solid"
+                        <label for="election_status">Status Pemilihan</label>
+                        <select name="election_status" id="election_status" class="form-control form-control-solid"
                             required>
-                            <option value="aktif" {{ $data->status_pemilihan == 'aktif' ? 'selected' : '' }}>Aktif
+                            <option value="yes" {{ $data->election_status == 'aktif' ? 'selected' : '' }}>Aktif
                             </option>
-                            <option value="tidak_aktif" {{ $data->status_pemilihan == 'tidak_aktif' ? 'selected' : '' }}>
+                            <option value="no" {{ $data->election_status == 'tidak_aktif' ? 'selected' : '' }}>
                                 Tidak Aktif</option>
                         </select>
                     </div>
