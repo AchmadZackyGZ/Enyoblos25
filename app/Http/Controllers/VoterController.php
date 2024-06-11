@@ -24,11 +24,11 @@ class VoterController extends Controller
     
     public function index()
     { 
-        $idKandidat =$this->candidate->all()->pluck('user_id')->toArray();
-        $dataPemilih =$this->user->whereNotIn('id', $idKandidat)->where('role', 'user')->get();
+        $candidate_id =$this->candidate->all()->pluck('user_id')->toArray();
+        $users =$this->user->whereNotIn('id', $candidate_id)->where('role', 'user')->get();
         return view('panitia/data_pemilih', [
             'title' => 'Data Pemilih',
-            'dataPemilih' => $dataPemilih
+            'users' => $users
         ]);
     }
 
@@ -60,7 +60,7 @@ class VoterController extends Controller
     /**
      * Digunakan untuk import data pemilih dari file excel.
      */
-    public function importPemilih(Request $request)
+    public function importVoter(Request $request)
     {
         $validatedData = $request->validate([
             'fileImport' => 'required|mimes:xlsx'

@@ -19,8 +19,8 @@
                         </div>
                     @endforeach
                 @endif
-                @if ($pengaturan->status_pendaftaran == 'aktif')
-                    @if (!$userKandidat)
+                @if ($periode->registration_status == 'yes')
+                    @if (!$candidate)
                         <form action="{{ route('daftar_kandidat_post') }}" method="POST" enctype="multipart/form-data">
                             @csrf
                             <div class="mb-3">
@@ -34,43 +34,43 @@
                                     placeholder="Nama" readonly value="{{ Auth::user()->name }}">
                             </div>
                             <div class="mb-3">
-                                <label for="nomor_wa">Nomor WA Yang Dapat Dihubungi</label>
-                                <input class="form-control form-control-solid" id="nomor_wa_input" type="text"
-                                    placeholder="0xxxxxxxxxxxx" name="nomor_wa" required value="{{ old('nomor_wa') }}">
+                                <label for="phone">Nomor WA Yang Dapat Dihubungi</label>
+                                <input class="form-control form-control-solid" id="phone_input" type="text"
+                                    placeholder="0xxxxxxxxxxxx" name="phone" required value="{{ old('phone') }}">
                             </div>
                             <div class="mb-3">
-                                <label for="visi">Visi</label>
-                                <textarea class="form-control form-control-solid @error('visi') is-invalid @enderror" name="visi" id="visi"
-                                    cols="30" rows="5" required>{{ old('visi') }}</textarea>
+                                <label for="vision">Visi</label>
+                                <textarea class="form-control form-control-solid @error('vision') is-invalid @enderror" name="vision" id="vision"
+                                    cols="30" rows="5" required>{{ old('vision') }}</textarea>
                             </div>
                             <div class="mb-3">
-                                <label for="misi">Misi</label>
-                                <textarea class="form-control form-control-solid @error('misi') is-invalid @enderror" name="misi" id="misi"
-                                    cols="30" rows="5" required>{{ old('misi') }}</textarea>
+                                <label for="mission">Misi</label>
+                                <textarea class="form-control form-control-solid @error('mission') is-invalid @enderror" name="mission" id="mission"
+                                    cols="30" rows="5" required>{{ old('mission') }}</textarea>
                             </div>
                             <div class="mb-3">
-                                <label for="pdf_ktm">PDF KTM Pendukung (.pdf)</label>
-                                <input class="form-control form-control-solid" type="file" name="pdf_ktm" id="pdf_ktm"
+                                <label for="student_card">PDF KTM Pendukung (.pdf)</label>
+                                <input class="form-control form-control-solid" type="file" name="student_card" id="student_card"
                                     required>
                             </div>
                             <div class="mb-3">
-                                <label for="suket_organisasi">Surat Keterangan Organisasi (.pdf)</label>
-                                <input class="form-control form-control-solid" type="file" name="suket_organisasi"
-                                    id="suket_organisasi" required>
+                                <label for="organization_letter">Surat Keterangan Organisasi (.pdf)</label>
+                                <input class="form-control form-control-solid" type="file" name="organization_letter"
+                                    id="organization_letter" required>
                             </div>
                             <div class="mb-3">
-                                <label for="suket_lkmm_td">Surat Keterangan LKMM TD (.pdf)</label>
-                                <input class="form-control form-control-solid" type="file" name="suket_lkmm_td"
-                                    id="suket_lkmm_td" required>
+                                <label for="lkmtd_letter">Surat Keterangan LKMM TD (.pdf)</label>
+                                <input class="form-control form-control-solid" type="file" name="lkmtd_letter"
+                                    id="lkmtd_letter" required>
                             </div>
                             <div class="mb-3">
-                                <label for="transkrip_nilai">Transkrip Nilai (.pdf)</label>
-                                <input class="form-control form-control-solid" type="file" name="transkrip_nilai"
-                                    id="transkrip_nilai" required>
+                                <label for="transcript">Transkrip Nilai (.pdf)</label>
+                                <input class="form-control form-control-solid" type="file" name="transcript"
+                                    id="transcript" required>
                             </div>
                             <div class="mb-3">
-                                <label for="foto">Foto 4x6 (.jpg, .png)</label>
-                                <input class="form-control form-control-solid" type="file" name="foto" id="foto"
+                                <label for="photo">Foto 4x6 (.jpg, .png)</label>
+                                <input class="form-control form-control-solid" type="file" name="photo" id="photo"
                                     required>
                             </div>
                             <div class="d-flex justify-content-end">

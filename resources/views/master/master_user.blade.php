@@ -49,7 +49,7 @@
                                     <td>{{ $u->nim }}</td>
                                     <td>{{ $u->name }}</td>
                                     <td>{{ $u->email }}</td>
-                                    <td>{{ $u->angkatan }}</td>
+                                    <td>{{ $u->cohort }}</td>
                                     <td>
                                         <div class="d-flex">
                                             <a href="{{ route('kirim_email_user', $u->id) }}" class="btn btn-primary mx-1"

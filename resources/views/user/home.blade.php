@@ -6,19 +6,19 @@
             {{ session('success') }}
         </div>
     @endif
-    @if ($pengaturan->election_status == 'yes')
-        @if (!$userVote)
+    @if ($periode->election_status == 'yes')
+        @if (!$voter)
             <div class="container-fluid">
                 <center>
-                    <h1>{{ $pengaturan->name }} {{ $pengaturan->year }}</h1>
+                    <h1>{{ $periode->name }} {{ $periode->year }}</h1>
                 </center>
-                @if ($isUserKandidat)
+                @if ($isCandidate)
                     <div class="alert alert-danger" role="alert">
                         Anda telah mendaftar sebagai kandidat, tidak diperbolehkan melakukan voting.
                     </div>
                 @endif
                 <div class="row justify-content-center my-0 my-md-3">
-                    @foreach ($kandidat as $k)
+                    @foreach ($candidate as $k)
                         <div class="col-12 col-md-6 col-lg-4">
                             <div class="card shadow mb-4">
                                 <div class="card-header py-3 text-center">
@@ -54,7 +54,7 @@
                                     <div class="d-flex justify-content-center">
                                         <a href="#" class="btn btn-primary mx-1" data-toggle="modal"
                                             data-target="#kandidat-{{ $k->id }}">Visi & Misi</a>
-                                        @if (!$isUserKandidat)
+                                        @if (!$isCandidate)
                                             <a href="#" class="btn btn-success mx-1" data-toggle="modal"
                                                 data-target="#pilih-kandidat-{{ $k->id }}">Pilih</a>
                                         @endif

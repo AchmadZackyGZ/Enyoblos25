@@ -34,21 +34,21 @@ Route::middleware(['auth', 'role:user'])->group(function () {
 
 // Panitia
 Route::middleware(['auth', 'role:panitia,master'])->group(function () {
-    Route::get('/dashboard', [HomeController::class, 'panitiaHome'])->name('panitia_home');
+    Route::get('/dashboard', [HomeController::class, 'committeeHome'])->name('panitia_home');
     Route::resource('/pemilih', VoterController::class);
     Route::delete('/delete-selected/pemilih', [VoterController::class, 'deleteSelected'])->name('pemilih.delete_selected');
-    Route::post('/pemilih/import', [VoterController::class, 'importPemilih'])->name('pemilih.import');
-    Route::get('/template-download', [CommitteeController::class, 'downloadTemplatePemilih'])->name('panitia.download_template_pemilih');
+    Route::post('/pemilih/import', [VoterController::class, 'importVoter'])->name('pemilih.import');
+    Route::get('/template-download', [CommitteeController::class, 'downloadVoterTemplate'])->name('panitia.download_template_pemilih');
     Route::resource('/kandidat', CandidatController::class);
-    Route::get('/kandidat/kelengkapan/{idKandidat}/{kelengkapan}', [CandidatController::class, 'cekKelengkapan'])->name('kandidat.cek_kelengkapan');
-    Route::get('/kandidat/kelengkapan/{idKandidat}/{kelengkapan}/download', [CandidatController::class, 'downloadKelengkapan'])->name('kandidat.download_kelengkapan');
+    Route::get('/kandidat/kelengkapan/{idKandidat}/{kelengkapan}', [CandidatController::class, 'checkDocuments'])->name('kandidat.cek_kelengkapan');
+    Route::get('/kandidat/kelengkapan/{idKandidat}/{kelengkapan}/download', [CandidatController::class, 'downloadDocuments'])->name('kandidat.download_kelengkapan');
     Route::post('/kandidat/verifikasi/{idKandidat}', [CandidatController::class, 'verifikasiData'])->name('kandidat.verifikasi_data');
-    Route::get('/pengaturan', [CommitteeController::class, 'pengaturan'])->name('pengaturan');
-    Route::post('/pengaturan', [CommitteeController::class, 'pengaturanPost'])->name('pengaturan_post');
-    Route::get('/status-pemilihan', [CommitteeController::class, 'statusPemilihan'])->name('status_pemilihan');
-    Route::get('/get-data-pemilihan', [CommitteeController::class, 'getDataPemilihan'])->name('get_data_pemilihan');
-    Route::get('/kirim-email/{id}', [CommitteeController::class, 'kirimEmail'])->name('kirim_email_user');
-    Route::get('/kirim-email-all', [CommitteeController::class, 'kirimEmailAll'])->name('kirim_email_all');
+    Route::get('/pengaturan', [CommitteeController::class, 'periode'])->name('pengaturan');
+    Route::post('/pengaturan', [CommitteeController::class, 'updateperiode'])->name('pengaturan_post');
+    Route::get('/status-pemilihan', [CommitteeController::class, 'electionStatus'])->name('status_pemilihan');
+    Route::get('/get-data-pemilihan', [CommitteeController::class, 'getDataElection'])->name('get_data_pemilihan');
+    Route::get('/kirim-email/{id}', [CommitteeController::class, 'sendEmail'])->name('kirim_email_user');
+    Route::get('/kirim-email-all', [CommitteeController::class, 'sendAllEmail'])->name('kirim_email_all');
 });
 
 // Master

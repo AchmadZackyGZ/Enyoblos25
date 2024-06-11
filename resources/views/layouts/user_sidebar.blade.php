@@ -17,7 +17,7 @@
 
 
     <!-- Nav Item - Pendaftaran Kandidat -->
-    @if ($pengaturan->halaman_pendaftaran == 'aktif')
+    @if ($periode->registration_page == 'Active')
         <hr class="sidebar-divider">
         <li class="nav-item">
             <a class="nav-link" href="{{ route('daftar_kandidat_form') }}">

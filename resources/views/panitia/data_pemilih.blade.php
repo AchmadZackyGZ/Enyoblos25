@@ -50,7 +50,7 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                @foreach ($dataPemilih as $d)
+                                @foreach ($users as $d)
                                     <tr>
                                         <td>
                                             <center>

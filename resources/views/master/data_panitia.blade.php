@@ -45,27 +45,27 @@
                         </div>
                     </form>
 
-                    @if ($hasilSearch)
+                    @if ( $search)
                         <hr>
                         <form action="{{ route('panitia.store') }}" method="POST">
                             @csrf
                             <div class="mb-3">
                                 <label for="nim">NIM</label>
                                 <input class="form-control form-control-solid" id="nimInput" type="text"
-                                    placeholder="NIM" name="nim" required readonly value="{{ $hasilSearch->nim }}">
+                                    placeholder="NIM" name="nim" required readonly value="{{  $search->nim }}">
                             </div>
                             <div class="mb-3">
                                 <label for="nama">Nama</label>
                                 <input class="form-control form-control-solid" id="namaInput" type="text"
                                     placeholder="Nama User" name="name" required readonly
-                                    value="{{ $hasilSearch->name }}">
+                                    value="{{  $search->name }}">
                             </div>
                             <div class="d-flex justify-content-end">
                                 <button type="submit" class="btn btn-primary">Tambah</button>
                             </div>
                         </form>
                     @endif
-                    @if (request('nim') && !$hasilSearch)
+                    @if (request('nim') && ! $search)
                         <p>Data tidak ditemukan. User telah menjadi panitia atau sudah mendaftar menjadi kandidat</p>
                     @endif
                 </div>
@@ -97,7 +97,7 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                @foreach ($dataPanitia as $d)
+                                @foreach ($committee as $d)
                                     <tr>
                                         <td>
                                             <center>
@@ -107,7 +107,7 @@
                                         <td>{{ $d->nim }}</td>
                                         <td>{{ $d->name }}</td>
                                         <td>{{ $d->email }}</td>
-                                        <td>{{ $d->angkatan }}</td>
+                                        <td>{{ $d->cohort }}</td>
                                     </tr>
                                 @endforeach
                             </tbody>

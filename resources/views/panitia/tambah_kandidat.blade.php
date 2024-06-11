@@ -22,7 +22,7 @@
                     </div>
                 </form>
 
-                @if ($hasilSearch)
+                @if ($data)
                     <hr>
                     @if (session()->has('errors'))
                         @foreach (session('errors')->all() as $e)
@@ -36,12 +36,12 @@
                         <div class="mb-3">
                             <label for="nim">NIM</label>
                             <input class="form-control form-control-solid" id="nimInput" type="text" placeholder="NIM"
-                                readonly value="{{ $hasilSearch->nim }}" name="nim">
+                                readonly value="{{ $data->nim }}" name="nim">
                         </div>
                         <div class="mb-3">
                             <label for="nama">Nama</label>
                             <input class="form-control form-control-solid" id="namaInput" type="text" placeholder="Nama"
-                                readonly value="{{ $hasilSearch->name }}">
+                                readonly value="{{ $data->name }}">
                         </div>
                         <div class="mb-3">
                             <label for="phone">Nomor WA Yang Dapat Dihubungi</label>
@@ -88,7 +88,7 @@
                         </div>
                     </form>
                 @endif
-                @if (request('nim') && !$hasilSearch)
+                @if (request('nim') && !$data)
                     <p>Data tidak ditemukan. User telah menjadi panitia atau sudah mendaftar menjadi kandidat</p>
                 @endif
             </div>

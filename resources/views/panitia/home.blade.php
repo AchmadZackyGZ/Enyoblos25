@@ -25,7 +25,7 @@
                             <div class="col mr-2">
                                 <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
                                     Jumlah Kandidat</div>
-                                <div class="h5 mb-0 font-weight-bold text-gray-800">{{ $jumlahKandidat }}</div>
+                                <div class="h5 mb-0 font-weight-bold text-gray-800">{{ $candidatesTotal }}</div>
                             </div>
                             <div class="col-auto">
                                 <i class="fas fa-hammer fa-2x text-gray-300"></i>
@@ -43,7 +43,7 @@
                             <div class="col mr-2">
                                 <div class="text-xs font-weight-bold text-success text-uppercase mb-1">
                                     Jumlah Pemilih</div>
-                                <div class="h5 mb-0 font-weight-bold text-gray-800">{{ $jumlahPemilih }}</div>
+                                <div class="h5 mb-0 font-weight-bold text-gray-800">{{ $votersTotal }}</div>
                             </div>
                             <div class="col-auto">
                                 <i class="fas fa-user fa-2x text-gray-300"></i>
@@ -64,7 +64,7 @@
                                 <div class="row no-gutters align-items-center">
                                     <div class="col-auto">
                                         <div class="h5 mb-0 mr-3 font-weight-bold text-gray-800">
-                                            {{ $jumlahVote }}/{{ $jumlahPemilih }}</div>
+                                            {{ $voters }}/{{ $votersTotal }}</div>
                                     </div>
                                     <div class="col">
                                         <div class="progress progress-sm mr-2">
@@ -91,7 +91,7 @@
                                 <div class="col mr-2">
                                     <div class="text-xs font-weight-bold text-warning text-uppercase mb-1">
                                         Jumlah Panitia</div>
-                                    <div class="h5 mb-0 font-weight-bold text-gray-800">{{ $jumlahPanitia }}</div>
+                                    <div class="h5 mb-0 font-weight-bold text-gray-800">{{ $commimitteesTotal }}</div>
                                 </div>
                                 <div class="col-auto">
                                     <i class="fas fa-comments fa-2x text-gray-300"></i>
