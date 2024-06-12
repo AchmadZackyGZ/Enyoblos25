@@ -9,20 +9,21 @@ use App\Models\Candidate;
 use App\Mail\InfoPemiraMail;
 use Illuminate\Http\Request; 
 use App\Http\Requests\PeriodeRequest;
+use App\Models\candidatepair;
 use Illuminate\Support\Facades\Mail; 
 
 class CommitteeController extends Controller
 {
     
-    private $candidate;
+    private $candidatepairs;
     private $periode;
     private $result;
     private $user;
-    public function __construct(Candidate $candidate, Periode $periode, Result $result, User $user)
+    public function __construct(candidatepair $candidatepairs, Periode $periode, Result $result, User $user)
     {
         $this->user = $user;
         $this->periode = $periode;
-        $this->candidate = $candidate;
+        $this->candidatepairs = $candidatepairs;
         $this->result = $result;
     }
 
@@ -122,10 +123,10 @@ class CommitteeController extends Controller
      */
     public function getDataElection()
     {
-        $candidate = $this->candidate->getWithUser();
+        $candidate = $this->candidatepairs->get();
         $data = [];
         foreach ($candidate as $c) {
-            array_push($data, [$c->user->name => $this->result->where('candidat_id', $c->id)->count()]);
+            array_push($data, [$c->getDataChairman->user->name." & ".$c->getDataViceChairman->user->name  => $this->result->where('candidat_id', $c->id)->count()]);
         }
 
         return response()->json($data);

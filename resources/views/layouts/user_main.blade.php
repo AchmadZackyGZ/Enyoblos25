@@ -31,7 +31,7 @@
     <div id="wrapper">
 
         <!-- Sidebar -->
-        @include('layouts/user_sidebar')
+        {{-- @include('layouts/user_sidebar') --}}
         <!-- End of Sidebar -->
 
         <!-- Content Wrapper -->

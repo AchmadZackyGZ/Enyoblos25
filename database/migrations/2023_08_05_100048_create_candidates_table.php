@@ -15,14 +15,11 @@ return new class extends Migration
             $table->id();
             $table->foreignId('user_id')->references('id')->on('users')->cascadeOnDelete();
             $table->string('phone', 20);
-            $table->text('vision');
-            $table->text('mission');
             $table->string('photo');
             $table->string('student_card');
             $table->string('organization_letter');
             $table->string('lkmtd_letter');
             $table->string('transcript');
-            $table->integer('score')->default(0);
             $table->enum('status', ['yes', 'no']);
             $table->timestamps();
         });

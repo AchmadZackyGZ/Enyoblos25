@@ -47,6 +47,64 @@ class DatabaseSeeder extends Seeder
             'role' => 'panitia',
         ]);
 
+        User::insert([
+            'nim' => 3012110001,
+            'name' => 'Example 1',
+            'email' => 'example@example.com',
+            'password' => bcrypt('password'),
+            'cohort' => '2021',
+            'role' => 'user',
+        ]);
+
+        User::insert([
+            'nim' => 3012110002,
+            'name' => 'Example 2',
+            'email' => 'example2@example.com',
+            'password' => bcrypt('password'),
+            'cohort' => '2022',
+            'role' => 'user',
+        ]);
+
+
+        User::insert([
+            'nim' => 3012110003,
+            'name' => 'Example 3',
+            'email' => 'example3@example.com',
+            'password' => bcrypt('password'),
+            'cohort' => '2022',
+            'role' => 'user',
+        ]);
+
+
+        User::insert([
+            'nim' => 3012110004,
+            'name' => 'Example 4',
+            'email' => 'example4@example.com',
+            'password' => bcrypt('password'),
+            'cohort' => '2021',
+            'role' => 'user',
+        ]);
+
+
+        User::insert([
+            'nim' => 3012110005,
+            'name' => 'Example 5',
+            'email' => 'example5@example.com',
+            'password' => bcrypt('password'),
+            'cohort' => '2021',
+            'role' => 'user',
+        ]);
+
+
+        User::insert([
+            'nim' => 3012110006,
+            'name' => 'Example 6',
+            'email' => 'example6@example.com',
+            'password' => bcrypt('password'),
+            'cohort' => '2022',
+            'role' => 'user',
+        ]);
+
         Periode::insert([
             'name' => 'Nama Pemilihan',
             'year' => 2023,

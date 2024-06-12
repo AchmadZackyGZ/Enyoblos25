@@ -12,15 +12,12 @@ class Candidate extends Model
     protected $fillable = [
         'user_id',
         'phone',
-        'vision',
-        'mission',
         'photo',
         'student_card',
         'organization_letter',
         'lkmtd_letter',
-        'transcript',
-        'score',
-        'status'
+        'transcript', 
+        'status', 
     ];
 
     public function user()

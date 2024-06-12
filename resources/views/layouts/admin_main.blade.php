@@ -189,6 +189,7 @@
     @endif
 
     @stack('scripts')
+    @stack('script-form')
 
 </body>
 
