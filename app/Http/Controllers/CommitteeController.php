@@ -140,10 +140,10 @@ class CommitteeController extends Controller
         $user = $this->user->find($id);
 
         $mailData = [
-            'title' => 'PEMIRA Kahima 2023',
-            'body' => 'Informasi mengenai kahima baru tahun 2023',
+            'title' => 'PEMIRA Kahima 2024',
+            'body' => 'Informasi mengenai kahima baru tahun 2024',
             'nama' => $user->name,
-            'default_password' => $user->nim . '_pemira2023',
+            'default_password' => $user->nim . '_pemira2024',
             'login_email' => $user->email
         ];
 
@@ -161,10 +161,10 @@ class CommitteeController extends Controller
 
         foreach ($users as $user) {
             $mailData = [
-                'title' => 'PEMIRA Kahima 2023',
-                'body' => 'Informasi mengenai kahima baru tahun 2023',
+                'title' => 'PEMIRA Kahima 2024',
+                'body' => 'Informasi mengenai kahima baru tahun 2024',
                 'nama' => $user->name,
-                'default_password' => $user->nim . '_pemira2023',
+                'default_password' => $user->nim . '_pemira2024',
                 'login_email' => $user->email
             ];
 
