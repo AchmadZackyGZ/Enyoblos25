@@ -47,17 +47,7 @@
                             <label for="phone">Nomor WA Yang Dapat Dihubungi</label>
                             <input class="form-control form-control-solid" id="phone_input" type="text"
                                 placeholder="0xxxxxxxxxxxx" name="phone" required value="{{ old('phone') }}">
-                        </div>
-                        <div class="mb-3">
-                            <label for="Vision">Visi</label>
-                            <textarea class="form-control form-control-solid @error('Vision') is-invalid @enderror" name="vision" id="visi"
-                                cols="30" rows="5" required>{{ old('Vision') }}</textarea>
-                        </div>
-                        <div class="mb-3">
-                            <label for="mission">Misi</label>
-                            <textarea class="form-control form-control-solid @error('mission') is-invalid @enderror" name="mission" id="mission"
-                                cols="30" rows="5" required>{{ old('mission') }}</textarea>
-                        </div>
+                        </div> 
                         <div class="mb-3">
                             <label for="student_card">PDF KTM Pendukung (.pdf)</label>
                             <input class="form-control form-control-solid" type="file" name="student_card" id="student_card"

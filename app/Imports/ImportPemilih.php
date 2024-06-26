@@ -21,10 +21,10 @@ class ImportPemilih implements ToModel, WithHeadingRow, SkipsOnError
     {
         return new User([
             'nim' => $row['nim'],
-            'name' => $row['nama'],
+            'name' => $row['name'],
             'email' => $row['email'],
-            'password' => bcrypt($row['nim'] . '_pemira2023'),
-            'angkatan' => $row['angkatan'],
+            'password' => bcrypt($row['nim'] . '_pemira2024'),
+            'cohort' => $row['angkatan'],
         ]);
     }
 

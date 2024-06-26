@@ -4,6 +4,7 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\GoogleController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\CandidatController;
+use App\Http\Controllers\CandidatepairController;
 use App\Http\Controllers\CommitteeController;
 use App\Http\Controllers\VoterController;
 use App\Http\Controllers\UserController;
@@ -27,9 +28,9 @@ Route::middleware('auth')->group(function () {
 // User
 Route::middleware(['auth', 'role:user'])->group(function () {
     Route::get('/home', [HomeController::class, 'userHome'])->name('user_home');
-    Route::get('/daftar', [CandidatController::class, 'create'])->name('daftar_kandidat_form');
-    Route::post('/daftar', [CandidatController::class, 'store'])->name('daftar_kandidat_post');
     Route::post('/vote/{idKandidat}', [CandidatController::class, 'vote'])->name('vote_kandidat');
+    // Route::get('/daftar', [CandidatController::class, 'create'])->name('daftar_kandidat_form');
+    // Route::post('/daftar', [CandidatController::class, 'store'])->name('daftar_kandidat_post');
 });
 
 // Panitia
@@ -40,6 +41,7 @@ Route::middleware(['auth', 'role:panitia,master'])->group(function () {
     Route::post('/pemilih/import', [VoterController::class, 'importVoter'])->name('pemilih.import');
     Route::get('/template-download', [CommitteeController::class, 'downloadVoterTemplate'])->name('panitia.download_template_pemilih');
     Route::resource('/kandidat', CandidatController::class);
+    Route::resource('/paslon', CandidatepairController::class);
     Route::get('/kandidat/kelengkapan/{idKandidat}/{kelengkapan}', [CandidatController::class, 'checkDocuments'])->name('kandidat.cek_kelengkapan');
     Route::get('/kandidat/kelengkapan/{idKandidat}/{kelengkapan}/download', [CandidatController::class, 'downloadDocuments'])->name('kandidat.download_kelengkapan');
     Route::post('/kandidat/verifikasi/{idKandidat}', [CandidatController::class, 'verifikasiData'])->name('kandidat.verifikasi_data');

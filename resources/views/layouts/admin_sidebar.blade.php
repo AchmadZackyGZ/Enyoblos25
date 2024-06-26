@@ -24,6 +24,11 @@
         Panitia
     </div>
 
+    <li class="nav-item {{ Route::currentRouteName() == 'paslon.index' ? 'active' : '' }}">
+        <a class="nav-link" href="{{ route('paslon.index') }}">
+            <i class="fas fa-fw fa-user-alt"></i>
+            <span>Data Paslon</span></a>
+    </li>
 
     <!-- Nav Item - Kandidat -->
     <li class="nav-item {{ Route::currentRouteName() == 'kandidat.index' ? 'active' : '' }}">

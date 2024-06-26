@@ -47,7 +47,7 @@ class CandidatController extends Controller
             $candidate = null;
             $search = null;
             if (request('nim')) {
-                $userId = $this->user->where('nim', request('nim'))->first()->id;
+                $userId = $this->user->where('nim', request('nim'))->first();
                 $candidate = $this->candidate->where('user_id', $userId)->first();
                 if (!$candidate) {
                     $search =  $this->user->where('role', 'user')->where('nim', request('nim'))->first();
@@ -60,6 +60,7 @@ class CandidatController extends Controller
                 'data' => $search
             ]);
         }
+
 
         $periode = $this->periode->first();
 

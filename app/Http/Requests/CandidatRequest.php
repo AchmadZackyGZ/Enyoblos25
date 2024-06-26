@@ -22,9 +22,7 @@ class CandidatRequest extends FormRequest
     public function rules(): array
     {
         return [ 
-            'phone' => 'required',
-            'vision' => 'required',
-            'mission' => 'required',
+            'phone' => 'required', 
             'photo' => 'required',
             'student_card' => 'required',
             'organization_letter' => 'required',
@@ -36,9 +34,7 @@ class CandidatRequest extends FormRequest
     public function messages(): array
     {
         return [ 
-            'phone.required' => 'Phone is required',
-            'vision.required' => 'Vision is required',
-            'mission.required' => 'Mission is required',
+            'phone.required' => 'Phone is required', 
             'photo.required' => 'Photo is required',
             'student_card.required' => 'Student Card is required',
             'organization_letter.required' => 'Organization Letter is required',
@@ -50,9 +46,7 @@ class CandidatRequest extends FormRequest
     public function attributes(): array
     {
         return [ 
-            'phone' => 'Phone',
-            'vision' => 'Vision',
-            'mission' => 'Mission',
+            'phone' => 'Phone', 
             'photo' => 'Photo',
             'student_card' => 'Student Card',
             'organization_letter' => 'Organization Letter',

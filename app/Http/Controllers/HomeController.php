@@ -5,21 +5,24 @@ namespace App\Http\Controllers;
 use App\Models\User;
 use App\Models\Result;
 use App\Models\Periode;
-use App\Models\Candidate; 
+use App\Models\Candidate;
+use App\Models\candidatepair;
 use Illuminate\Support\Facades\Auth;
 
 class HomeController extends Controller
 {
 
+    private $candidatepair;
     private $candidate;
     private $periode;
     private $result;
     private $user;
     
-    public function __construct(Candidate $candidate, Periode $periode, Result $result, User $user)
+    public function __construct(candidate $candidate,candidatepair $candidatepair, Periode $periode, Result $result, User $user)
     {
         $this->user = $user;
         $this->periode = $periode;
+        $this->candidatepair = $candidatepair;
         $this->candidate = $candidate;
         $this->result = $result;
     }
@@ -42,16 +45,16 @@ class HomeController extends Controller
 
     public function userHome()
     {
-        $periode = $this->periode->first();
-        $voter = $this->result->where('user_id', Auth::user()->id)->first();
-        $candidate = $this->candidate->with('user')->where('status', 'Yes')->get();
+        $periode = $this->periode->first(); 
+        $candidatepairs = $this->candidatepair->get();
         $isCandidate = $this->candidate->where('user_id', Auth::user()->id)->first();
+        $voter = $this->result->where('user_id', Auth::user()->id)->first();
 
         return view('user/home', [
             'title' => 'Home',
-            'periode' => $periode,
+            'periode' => $periode, 
             'voter' => $voter, 
-            'candidate' => $candidate,
+            'candidatepairs' => $candidatepairs,
             'isCandidate' => $isCandidate
         ]);
 

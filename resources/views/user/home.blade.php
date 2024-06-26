@@ -18,37 +18,42 @@
                     </div>
                 @endif
                 <div class="row justify-content-center my-0 my-md-3">
-                    @foreach ($candidate as $k)
+                    @foreach ($candidatepairs as $k)
                         <div class="col-12 col-md-6 col-lg-4">
                             <div class="card shadow mb-4">
-                                <div class="card-header py-3 text-center">
+                                <div class="card-header text-center">
                                     {{ $loop->iteration }}
                                 </div>
                                 <div class="card-body">
                                     <div class="row justify-content-center">
                                         <div class="">
-                                            <img src="{{ asset('storage/' . $k->photo) }}" alt="" width="288"
+                                            <img src="{{ asset('storage/' . $k->photo) }}" style="object-fit: contain" alt="" width="288"
                                                 height="432">
                                         </div>
                                     </div>
                                     <hr>
                                     <div class="row">
-                                        <div class="col-sm-3">
-                                            <p class="mb-0">Nama</p>
-                                        </div>
                                         <div class="col-sm-9">
-                                            <p class="text-muted mb-0">{{ $k->user->name }}</p>
+                                            <p class="mb-2"><b>Calon Ketua Dan Wakil</b></p>
+                                        </div> 
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-sm-9">
+                                            <p class="text-muted mb-0">{{ $k->getDataChairman->user->name." & ".$k->getDataViceChairman->user->name }}</p>
                                         </div>
                                     </div>
                                     <hr>
                                     <div class="row">
-                                        <div class="col-sm-3">
-                                            <p class="mb-0">NIM</p>
-                                        </div>
                                         <div class="col-sm-9">
-                                            <p class="text-muted mb-0">{{ $k->user->nim }}</p>
+                                            <p class="mb-0"><b>NIM Ketua dan Wakil</b></p>
+                                        </div> 
+                                    </div> 
+                                    <div class="row">
+                                        <div class="col-sm-9">
+                                            <p class="text-muted mb-0">{{ $k->getDataViceChairman->user->nim." & ".$k->getDataViceChairman->user->nim }}</p>
                                         </div>
                                     </div>
+                                     
                                 </div>
                                 <div class="card-footer">
                                     <div class="d-flex justify-content-center">
@@ -110,7 +115,7 @@
                                         </button>
                                     </div>
                                     <div class="modal-body">
-                                        <h5>Apa anda yakin ingin memilih <b>{{ $k->user->name }}</b> ?</h5>
+                                        <h5>Apa anda yakin ingin memilih <b>{{ $k->getDataChairman->user->name }}</b> ?</h5>
                                         <p class="text-danger">*Pilihan anda tidak bisa dirubah</p>
                                     </div>
                                     <div class="modal-footer">
