@@ -8,6 +8,7 @@ use Illuminate\Mail\Mailable;
 use Illuminate\Mail\Mailables\Content;
 use Illuminate\Mail\Mailables\Envelope;
 use Illuminate\Queue\SerializesModels;
+use Symfony\Component\Mime\Email;
 
 class InfoPemiraMail extends Mailable
 {
@@ -21,7 +22,27 @@ class InfoPemiraMail extends Mailable
     public function __construct($mailData)
     {
         $this->mailData = $mailData;
+
+        // ✅ Tambahkan header List-Unsubscribe sebagai callback di sini
+        $this->withSymfonyMessage(function (Email $message) {
+            $message->getHeaders()->addTextHeader(
+                'List-Unsubscribe',
+                '<mailto:unsubscribe@enyoblos.com>'
+            );
+        });
     }
+    public function build()
+    {
+        return $this->subject('Informasi Pemira')
+                    ->view('emails.info_pemira')
+                    ->withSymfonyMessage(function (Email $message) {
+                        $message->getHeaders()->addTextHeader(
+                            'List-Unsubscribe',
+                            '<mailto:unsubscribe@example.com>'
+                        );
+                    });
+    }
+
 
     /**
      * Get the message envelope.
@@ -29,7 +50,7 @@ class InfoPemiraMail extends Mailable
     public function envelope(): Envelope
     {
         return new Envelope(
-            subject: 'Info Pemira Kahima 2023',
+            subject: 'Info Pemira Kahima 2025',
         );
     }
 
@@ -52,4 +73,5 @@ class InfoPemiraMail extends Mailable
     {
         return [];
     }
+
 }
